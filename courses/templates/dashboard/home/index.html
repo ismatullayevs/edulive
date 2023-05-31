@@ -1,0 +1,156 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section>
+            <div class="row">
+                <div class="col-xxl-8 ">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4  col-xxl-4 mb-3">
+                            <div class="d-flex justify-content-center align-items-center p-4 rounded-3"
+                                 style="background-color: #E8E46E">
+                                <span class="display-6 lh-1 text-orange mb-0"><i class="fas fa-tv fa-fw"></i></span>
+                                <div class="ms-4">
+                                    <div class="d-flex">
+                                        <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                            data-purecounter-end="9"
+                                            data-purecounter-delay="200"
+                                            data-purecounter-duration="0">{{ count_courses }}</h5>
+                                    </div>
+                                    <p class="mb-0 h6 fw-light">Kurslar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xxl-4 mb-3 ">
+                            <div class="d-flex justify-content-center align-items-center p-4  bg-opacity-15 rounded-3"
+                                 style="background-color: #C1DEAE">
+                                <span class="display-6 lh-1 text-orange mb-0"><i
+                                        class="fas fa-clipboard-check fa-fw"></i></span>
+                                <div class="ms-4">
+                                    <div class="d-flex">
+                                        <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                            data-purecounter-end="9"
+                                            data-purecounter-delay="200"
+                                            data-purecounter-duration="0">{{ count_groups }}</h5>
+                                    </div>
+                                    <p class="mb-0 h6 fw-light">Guruhlar</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4 col-xxl-4 mb-3">
+                            <div class="d-flex justify-content-center align-items-center p-4  bg-opacity-15 rounded-3"
+                                 style="background-color: #F2F5C8">
+                                        <span class="display-6 lh-1 text-orange mb-0"><i
+                                                class="fas fa-graduation-cap"></i></span>
+                                <div class="ms-4">
+                                    <div class="d-flex">
+                                        <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                            data-purecounter-end="9"
+                                            data-purecounter-delay="200"
+                                            data-purecounter-duration="0">{{ students.count }}</h5>
+                                    </div>
+                                    <p class="mb-0 h6 fw-light">O'quvchilar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="projects">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>O'quvchilar ro'yxati</h3>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table width="100%">
+                                            <thead>
+                                            <tr>
+                                                <td>Img</td>
+                                                <td>FIO</td>
+                                                <td>Telfon</td>
+                                                <td>email</td>
+                                                {#                                                <td>course</td>#}
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for student in students %}
+                                                <tr>
+                                                    <td>
+                                                        {% if student.image %}
+                                                            <img src="{{ student.image }}"
+                                                                 width="40"
+                                                                 height="40" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'courses/images/man.png' %}"
+                                                                 width="40" height="40" alt="">
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ student.full_name }}</td>
+                                                    <td>+{{ student.phone_number }}</td>
+                                                    <td>{{ student.email }}</td>
+                                                    <td>
+                                                    <td>{{ student.courses_joined__title }}</td>
+                                                    {% for cour in student.courses_joined.all %}
+                                                        {{ cour }}
+                                                    {% endfor %}
+
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+
+
+                                            {#                                            {% for course in courses %}#}
+                                            {#                                                {% for student in course.students.all %}#}
+                                            {#                                                    {% with student.user as user %}#}
+                                            {#                                                        <tr>#}
+                                            {#                                                            <td>#}
+                                            {#                                                                {% if user.profile_image %}#}
+                                            {#                                                                    <img src="{{ user.profile_image.url }}"#}
+                                            {#                                                                         width="40"#}
+                                            {#                                                                         height="40" alt="">#}
+                                            {#                                                                {% else %}#}
+                                            {#                                                                    <img src="{% static 'courses/images/man.png' %}"#}
+                                            {#                                                                         width="40" height="40" alt="">#}
+                                            {#                                                                {% endif %}#}
+                                            {#                                                            </td>#}
+                                            {#                                                            <td>{{ user }}</td>#}
+                                            {#                                                            <td>+{{ user.phone_number }}</td>#}
+                                            {#                                                            <td>{{ user.email }}</td>#}
+                                            {#                                                            <td style="display: table-cell">{{ course }}</td>#}
+                                            {##}
+                                            {##}
+                                            {#                                                        </tr>#}
+                                            {##}
+                                            {#                                                    {% endwith %}#}
+                                            {#                                                {% endfor %}#}
+                                            {##}
+                                            {##}
+                                            {#                                            {% endfor %}#}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-xxl-4 ">
+                    <div id="calendar"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block js %}
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="{% static 'dashboard/js/calendar.js' %}"></script>
+
+{% endblock %}

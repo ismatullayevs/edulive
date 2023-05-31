@@ -1,0 +1,41 @@
+{% load static %}
+{% with user=request.user %}
+
+    <div id="comment-4" class="comment">
+        <div class="d-flex">
+            {% if comment.user.profile_image %}
+                <div class="comment-img"><img src="{{ comment.user.profile_image.url }}" alt=""></div>
+            {% else %}
+                <div class="comment-img"><img src="{% static 'courses/images/man.png' %}" alt=""></div>
+
+            {% endif %}
+            <div>
+                <h5><a href="">{{ comment.user.get_full_name }}</a></h5>
+                <time>{{ comment.timestamp }}</time>
+                <p>
+                    {{ comment }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endwith %}
+{#{% width c_user = comment.user %}#}
+{##}
+{#    <div id="comment-1" class="comment">#}
+{#        <div class="d-flex">#}
+{#            {% if user.profile_image %}#}
+{#                <div class="comment-img"><img src="{{ request.user.profile_image.url }}" alt=""></div>#}
+{#            {% else %}#}
+{#                <div class="comment-img"><img src="{% static 'courses/images/man.png' %}" alt=""></div>#}
+{#            {% endif %}#}
+{#            <h3>{{ comment.user.get_full_name }}</h3>#}
+{#            <time datetime="2020-01-01">{{ comment.timestamp }}</time>#}
+{#        </div>#}
+{##}
+{##}
+{#        <p>#}
+{#            {{ comment.content }}#}
+{#        </p>#}
+{#    </div>#}
+{#{% endwith %}#}

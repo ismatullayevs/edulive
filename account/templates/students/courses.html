@@ -1,0 +1,88 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="card">
+            <div class="p-3 fw-bolder d-flex justify-content-between">
+                <h2>Kurslar ro'yxati</h2>
+                {#                <form class="col-md-6 search-wrapper" action="">#}
+                {#                    <span class="fas fa-search"></span>#}
+                {#                    <input name="search_courses" type="search" placeholder="search">#}
+                {#                </form>#}
+            </div>
+            <hr>
+            <div class="list-courses">
+                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover ">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="border-0 rounded-start">Kurs nomi</th>
+                        <th scope="col" class="border-0">Darslar soni</th>
+                        <th scope="col" class="border-0">Tugallangan darslar</th>
+                        <th scope="col" class="border-0 rounded-end">Holati</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for object in object_list %}
+                        {% with progress=object.progress complate=object.complate_modules.count total=object.total.count %}
+
+                            <tr>
+                                <!-- Table data -->
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-md-start">
+                                        <!-- Image -->
+                                        <div style="width: 100px !important;">
+                                            <img width="100%" src="{{ object.course.img.url }}" class="rounded" alt="">
+                                        </div>
+                                        <div class="mb-0 ms-2">
+                                            <!-- Title -->
+                                            <h6 class="table-responsive-title"><a class="text-decoration-none"
+                                                                                  style="color: #2b2d42;"
+                                                                                  href="{% url 'account:student_course_detail' object.slug object.course.slug %}">{{ object.course.title }}</a>
+                                            </h6>
+                                            <!-- Info -->
+                                            <div class="overflow-hidden">
+                                                <h6 class="mb-0 text-end">{{ progress }} %</h6>
+                                                <div class="progress progress-sm bg-primary bg-opacity-10"
+                                                     style="height: 5px;">
+                                                    <div class="progress-bar bg-primary aos aos-init aos-animate"
+                                                         role="progressbar"
+                                                         data-aos="slide-right" data-aos-delay="200"
+                                                         data-aos-duration="1000"
+                                                         data-aos-easing="ease-in-out"
+                                                         style="width: {{ progress }}%" aria-valuenow="{{ progress }}"
+                                                         aria-valuemin="0" aria-valuemax="100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <!-- Table data -->
+                                <td>{{ total }}</td>
+                                <!-- Table data -->
+                                <td>{{ complate }}</td>
+                                <!-- Table data -->
+                                <td style="display: table-cell;">
+                                    <a href="{% url 'account:student_course_detail' object.slug object.course.slug %}"
+                                       class="btn btn-outline-success me-1 mb-1 mb-md-0"><i
+                                            class="fas fa-play-circle me-1"></i>Continue</a>
+                                </td>
+                            </tr>
+                        {% endwith %}
+
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+
+            </div>
+
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

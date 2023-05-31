@@ -1,0 +1,59 @@
+{% extends 'students/layout/base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{#{% block sidebar %}#}
+{#    {% include 'students/layout/_sidebar_module.html' %}#}
+{#{% endblock %}#}
+
+{% block content %}
+    <main>
+        {#    {{ object.module.contents.all }}#}
+        <h2 class="text-center">
+            {{ object.module.title|capfirst }}
+        </h2>
+        <p>{{ object.module.description }}</p>
+
+        {#        {{ object.module.contents.all }}#}
+
+
+        <section id="course__contens m-5">
+            {% for content in contents %}
+                {% with content.item as item %}
+                    {{ item.render }}
+                {% endwith %}
+            {% endfor %}
+        </section>
+        <section id="course__contens mt-5">
+            {% for content in group_contents %}
+                {% with content.item as item %}
+                    {{ item.render }}
+                {% endwith %}
+            {% endfor %}
+        </section>
+        <section id="blog" class="blog">
+            <div class="offset-1  col-md-10">
+                <div class="blog-comments">
+
+                    <h4 class="comments-count">{{ comments.count }} Comments</h4>
+
+
+                    <div class="wrapper-comments" style="background-color: white; padding: 1em;">
+                        {% for comment in comments %}
+                            {% include 'students/comment/comment_detail.html' %}
+                        {% endfor %}
+                    </div>
+                    <div class="reply-form">
+                        {% include 'students/comment/comment_form.html' %}
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+{% endblock %}
+
+
+

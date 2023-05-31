@@ -1,0 +1,157 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block style %}
+
+{% endblock style %}
+
+{% block header %}
+    {% include 'course/include/_header.html' %}
+    {% comment %} {% include 'courses/home/new/include/courses_header.html' %} {% endcomment %}
+{% endblock header %}
+
+{% block content %}
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs text-center p-5">
+        <div class="container">
+            <h2>Kurslar</h2>
+            <p>Kurslarni qulay muhitda o'rganing</p>
+        </div>
+    </div><!-- End Breadcrumbs -->
+    <section class="courses container">
+        <div class="row">
+            <div class="col-md-3 br section-course-tags">
+                <h2 class="sidebar-title-course p-3 bg-light">Kategoriya</h2>
+                <div class="course-subjects">
+                    <div class="list-group br">
+                        <ul class="list-group fn-size">
+                            <a class="list-group-item border-0 list-group-item-action p-3 {% if not subject %}selected{% endif %}"
+                               href="{% url 'course:course_list' %}">All</a>
+                            {% for s in subjects %}
+                                <a href="{% url 'course:course_list_subject' s.slug %}"
+                                   class="list-group-item border-0 list-group-item-action p-3 {% if subject == s %}selected{% endif %} ">{{ s.title }}
+                                    <span>{% if s.total_courses > 0 %}({{ s.total_courses }}){% endif %}</span></a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% comment %}
+                    <div class="course-subjects mt-5">
+                        <h2 class="sidebar-title-tags bg-light p-3">Tags</h2>
+                        <div class="tags">
+                            <p><a href="#">Adventure</a></p>
+                            <p><a href="#">Animals</a></p>
+                            <p><a href="#">Asia</a></p>
+                            <p><a href="#">Beauty</a></p>
+                            <p><a href="#">Canada</a></p>
+                            <p><a href="#">Celebration</a></p>
+                            <p><a href="#">City</a></p>
+                            <p><a href="#">Coffee</a></p>
+                            <p><a href="#">Constructions</a></p>
+                            <p><a href="#">Europe</a></p>
+                            <p><a href="#">Adventure</a></p>
+                            <p><a href="#">Animals</a></p>
+                            <p><a href="#">Asia</a></p>
+                            <p><a href="#">Beauty</a></p>
+                            <p><a href="#">Canada</a></p>
+                            <p><a href="#">Celebration</a></p>
+                            <p><a href="#">City</a></p>
+                            <p><a href="#">Coffee</a></p>
+                            <p><a href="#">Constructions</a></p>
+                            <p><a href="#">Europe</a></p>
+                            <p><a href="#">Adventure</a></p>
+                            <p><a href="#">Animals</a></p>
+                            <p><a href="#">Asia</a></p>
+                            <p><a href="#">Beauty</a></p>
+                            <p><a href="#">Canada</a></p>
+                        </div>
+                    </div>
+                    {% endcomment %}
+            </div>
+            <div class="col-md-9">
+                <div class="row mt-3 mb-3">
+                    {% if subject %}
+                        <h1 class="heading col-md-6 ">{{ subject }} </h1>
+                    {% else %}
+                        <h1 class="heading col-md-6 ">Hamma kurslar </h1>
+
+                    {% endif %}
+
+                    <form class="col-md-6 search-wrapper" action="">
+                        <span class="fas fa-search"></span>
+                        <input name="search_courses" type="search" placeholder="search">
+                    </form>
+                </div>
+
+                <div class="course__wrapper">
+                    {% for course in courses %}
+                        <div class="card shadow p-2 mb-3">
+                            <div class="row g-0">
+                                <div class="col-lg-5">
+                                    <img width="350" height="250" src="{{ course.img.url }}" class="img-fluid rounded-2"
+                                         alt="Card image">
+                                </div>
+                                <div class="col-lg-7">
+                                    <div class="card-body">
+                                        <!-- Badge and rating -->
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <!-- Badge -->
+                                            <a href="{% url 'course:course_list_subject' course.subject.slug %}"
+                                               class="badge bg-primary text-white mb-2 mb-sm-0">{{ course.subject }}</a>
+                                            <!-- Rating and wishlist -->
+                                            <div>
+                                                <a href="#" class="text-dark"><i class="far fa-heart"></i></a>
+                                            </div>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <h5 class="card-title"><a
+                                                href="{% url 'course:course_detail' course.slug %}">{{ course.title }}</a>
+                                        </h5>
+                                        <p class="text-truncate">{{ course.overview|truncatechars:100 }}</p>
+
+                                        <!-- Info -->
+                                        <ul class="list-inline">
+                                            {#                                                <li class="list-inline-item text-dark mb-1 mb-sm-0"><i class="far fa-clock text-danger me-2"></i>6h 56m</li>#}
+                                            <li class="list-inline-item text-dark mb-1 mb-sm-0"><i
+                                                    class="fas fa-table text-orange me-2"></i>mavzular {{ course.modules.count }}
+                                            </li>
+                                        </ul>
+
+                                        <!-- Price and avatar -->
+                                        <div class="d-sm-flex justify-content-sm-between align-items-center">
+                                            <!-- Avatar -->
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar">
+                                                    <img class="avatar-img  rounded-circle" style="object-fit:cover" src="{{ course.owner.profile_image.url }}"
+                                                         height="48" width="48" alt="avatar">
+                                                </div>
+                                                <p class="mb-0 ms-2"><a href="#"
+                                                                        class="text-dark">{{ course.owner.get_full_name }}</a>
+                                                </p>
+                                            </div>
+                                            <!-- Price -->
+                                            <div class="mt-3 mt-sm-0">
+                                                <a href="{% url 'course:course_detail' course.slug %}"
+                                                   class="btn btn-dark">kursga kirish</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+{% endblock content %}
+
+{% block footer %}
+    {% include 'course/include/_footer.html' %}
+{% endblock footer %}

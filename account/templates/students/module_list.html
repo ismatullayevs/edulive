@@ -1,0 +1,134 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% load course %}
+{% block content %}
+    {% now 'U' as time %}
+    {% now 'z' as day %}
+    {% now 'W' as weekend %}
+    <main>
+        <div class="pagetitle">
+            <h1>{{ groupcourse.course }}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    {#                    <li class="breadcrumb-item"><a href="{% url 'stdudent_dashboard' %}">Dashboard</a></li>#}
+                    {#                    <li class="breadcrumb-item"><a href="{% url 'student_course_list' %}">Courses</a></li>#}
+                    <li class="breadcrumb-item active">{{ groupcourse }}</li>
+                </ol>
+            </nav>
+        </div>
+
+        {% regroup modules by date|date:'W'  as week_module %}
+
+        <div class="accordion " id="accordionExample">
+            {% for date, week in week_module %}
+                <div class="accordion-item m-2">
+                    <h2 class="accordion-header" id="heading{{ date }}">
+                        <button class="accordion-button" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ date }}"
+                                aria-expanded="false"
+                                aria-controls="collapse{{ modul.order }}">
+                            <div class="">
+                                <div class="">
+                                    {{ forloop.counter }} ~ hafta
+                                </div>
+                                <div class="d-flex">
+                                    {% for time_group in week %}
+
+                                        <div
+                                                {% if time_group.date|date:'U' < time and not time_group.date|date:'z' == day %}
+                                                    class="bg-success text-light m-1 p-1 border rounded-3"
+                                                {% elif time_group.date|date:'z' == day %}
+                                                    class="bg-warning text-light m-1 p-1 border rounded-3"
+                                                {% else %}
+                                                    class="bg-danger text-light m-1 p-1 border rounded-3"
+                                                {% endif %} >
+
+                                            {{ time_group.date|date:'d F' }}
+                                        </div>
+                                        {##}
+                                        {#                                                                            {% if forloop.first %}#}
+                                        {#                                                                                ({{ time_group.date|date:'D' }}#}
+                                        {#                                                                                {% elif forloop.last %}#}
+                                        {#                                                                                 ... {{ time_group.date|date:'D' }})#}
+                                        {#                                                                                {% else %}#}
+                                        {##}
+                                        {#                                                                            {% endif %}#}
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+
+
+                        </button>
+
+                        <div id="collapse{{ date }}" class="accordion-collapse collapse
+                                {% if date == weekend %} show {% endif %}
+                                "
+                             aria-labelledby="heading{{ modul.order }}"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body fn-size">
+                                <div class="d-md-flex d-sm-block justify-content-md-start gap-3">
+                                    {% for group in week %}
+                                        {% with group.module as module %}
+                                            <div class="card bg-light mb-3" style="max-width: 25rem;">
+                                                <div class="card-header text-light
+                                                         {% if group.date|date:'U' < time and not group.date|date:'z' == day %}bg-success
+                                                         {% elif group.date|date:'z' == day %}bg-warning
+                                                         {% else %}bg-danger
+                                                     {% endif %}">
+                                                    <a class="text-decoration-none text-light
+                                                        {% if group.date|date:'z' == day %}text-dark
+
+                                                         {% else %}
+
+                                                         {% endif %}
+                                                        " href="#">
+                                                        {{ module.order|add:1 }}){{ module.title }}
+                                                    </a>
+
+
+                                                </div>
+                                                <div class="card-body">
+                                                    <code>
+                                                        {{ group.date }} {{ groupcourse.time }}
+                                                    </code>
+                                                    <p class="card-text">{{ module.description|truncatechars:100 }}</p>
+                                                    <div class="d-flex justify-content-between">
+
+                                                        {% if group.date|date:'z' < day %}
+                                                            <a href="{% url 'account:module_detail' course_s group.pk %}"
+                                                               class="text-decoration-none btn btn-outline-success">kirish
+                                                            </a>
+                                                        {% endif %}
+                                                        {% for groupcontent in group.groupcontents.all %}
+                                                            {% with groupcontent.item as item %}
+                                                                {% if item|model_name == 'zoom' and group.date|date:'z' == day %}
+                                                                    <a class="btn btn-outline-primary"
+                                                                       href="{{ item.url }}">zoomga
+                                                                        kirish </a>
+                                                                    <a href="{% url 'module_detail' course_s group.pk %}"
+                                                                       class="text-decoration-none btn btn-outline-success">kirish
+                                                                    </a>
+                                                                {% endif %}
+                                                            {% endwith %}
+                                                        {% endfor %}
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        {% endwith %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </h2>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

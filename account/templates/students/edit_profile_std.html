@@ -1,0 +1,52 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+    <main>
+
+        <div class="col-xl-9">
+            <!-- Edit profile START -->
+            <div class="card bg-transparent border rounded-3">
+                <!-- Card header -->
+                <div class="card-header bg-transparent border-bottom">
+                    <h3 class="card-header-title mb-0">Profilni tahrilash</h3>
+                </div>
+                <!-- Card body START -->
+                <div class="card-body">
+                    <!-- Form -->
+                    {% include 'account/custom_user_form.html' %}
+                </div>
+                <!-- Card body END -->
+            </div>
+            <!-- Edit profile END -->
+
+            <div class="row g-4 mt-3">
+                <!-- Password change START -->
+                <div class="col-lg-6">
+                    <div class="card border bg-transparent rounded-3">
+                        <!-- Card header -->
+                        <div class="card-header bg-transparent border-bottom">
+                            <h5 class="card-header-title mb-0">Parolni o'zgartirish</h5>
+                        </div>
+                        <!-- Card body START -->
+                        <div class="card-body">
+                            <!-- Current password -->
+                            <form action="" method="post">
+                                {% include 'account/change/change_password.html' %}
+                            </form>
+
+                        </div>
+                        <!-- Card body END -->
+                    </div>
+                </div>
+                <!-- Password change end -->
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+{% endblock %}

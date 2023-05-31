@@ -1,0 +1,33 @@
+<div hx-target="this" hx-swap="outerHTML" class="row border p-3 shadow-sm mx-3 my-3">
+    <div class="col-md-6">
+        <a href="{% url 'quiz:add_questions' object.id %}"><h2>{{ object.title }}</h2></a>
+        <p>{{ object.course }}</p>
+        <div class="row gap-2">
+            <button hx-get="{% url 'quiz:update_quiz' object.id %}" class="col-md-4 btn btn-outline-warning">update
+            </button>
+            <button hx-delete="{% url 'quiz:delete_quiz' object.id %}" hx-confirm="{{ object }} o'chirish"
+                    class="col-md-4 btn btn-outline-danger">delete
+            </button>
+            <form class="col-md-4">
+                {% csrf_token %}
+                <div class="form-check form-switch" style="font-size: 1.5rem;">
+                    <input name="active"
+                           hx-post="{% url 'quiz:quiz_active' object.pk %}"
+                           hx-target="this" hx-trigger="click" hx-swap="innerHTML"
+                           class="form-check-input" type="checkbox"
+                           {% if object.active == True %}checked{% endif %}
+                           role="switch"
+                           id="{{ object.pk }}">
+                    <label class="form-check-label"
+                           for="{{ object.pk }}">on/off</label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <p>time: {{ object.time }}</p>
+        <p>o'tish bali: {{ object.score_to_pass }}%</p>
+        <p>savollar: {{ object.number_of_questions }}ta lik</p>
+        <p>umumiy savollar soni: {{ object.questions.count }}</p>
+    </div>
+</div>

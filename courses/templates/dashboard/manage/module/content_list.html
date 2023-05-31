@@ -1,0 +1,175 @@
+{% extends "dashboard/layout/base.html" %}
+{% load course %}
+{% load static %}
+{% block title %}
+    Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+{% block content %}
+    <main>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a
+                        href="{% url 'course:manage:manage_course_detail' module.course.id %}">{{ module.course }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ module.title }}</li>
+            </ol>
+        </nav>
+        <div align='center' class="card_course_detail"
+             style="background-image: url('{% static 'courses/images/background/curved0.jpg' %}') ">
+
+
+            <div>
+                <h1>{{ module.course }}</h1>
+            </div>
+            <div class="card__manage blur">
+                <div class="author__course">
+                    <img src="{% static 'courses/images/pic-3.png' %}" alt="">
+                    <div class="author__name">
+                        <h3>{{ module.course.owner.get_full_name }}</h3>
+                        <small>{{ course.owner }}</small>
+                    </div>
+
+                </div>
+                {##}
+                {#                <div class="manage__course">#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/document.png' %}" alt=""> mavzu</a>#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/notebook.png' %}" alt=""> mavzu tarkibi</a>#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/quiz.png' %}" alt=""> test</a>#}
+                {##}
+                {#                </div>#}
+            </div>
+        </div>
+
+
+        <div class="resent-grid" style="grid-template-columns:100%">
+            <div class="projects">
+
+                <div class="card">
+                    <div class="card-header justify-content-center">
+                        <h2>{{ module.title|capfirst }}</h2>
+                        {##}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "text" %}"#}
+                        {#                                   class="button">text</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "image" %}"#}
+                        {#                                   class="button">image</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "file" %}"#}
+                        {#                                   class="button">file</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "video" %}"#}
+                        {#                                   class="button">video</a><span class="fas fa-arrow-right"></span></button>#}
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="course-module">
+                            {% with course=module.course %}
+                                <div class="contents">
+                                    <h3>Mavzular</h3>
+                                    <ul id="modules">
+                                        {% for m in course.modules.all %}
+                                            <li data-id="{{ m.id }}" {% if m == module %}
+                                                class="selected"{% endif %}>
+                                                <a href="{% url "course:manage:module_content_list" m.id %}">
+                                                    <span class="order">{{ m.order|add:1 }}</span>)
+                                                    {{ m.title }}
+                                                </a>
+                                            </li>
+                                        {% empty %}
+                                            <li>hali mavzular yo'q</li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p><a href="{% url "course:manage:course_module_update" course.id %}">
+                                        mavzularni tahrirlash</a></p>
+                                </div>
+                                <div class=" mt-3 course-content">
+                                    <h3>Mavzu elementlari:</h3>
+                                    <div id="module-contents">
+
+                                        {% for content in module.contents.all %}
+                                            {% with content.item as item %}
+                                                {% include 'dashboard/manage/content/content_details.html' %}
+                                            {% endwith %}
+
+                                        {% empty %}
+                                            <p>mavzu elementlari hali yo'q</p>
+                                        {% endfor %}
+                                        <div id="content"></div>
+
+                                    </div>
+
+
+                                    <div class="card-header fs-5">
+
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "text" %}"
+                                                hx-target="#content" hx-swap="innerHTML" class="fs-6">text
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "image" %}"
+                                                hx-target="#content" hx-swap="innerHTML" class="fs-6">image
+
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "file" %}"
+                                                hx-target="#content" hx-swap="innerHTML" class="fs-6">file
+
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "video" %}"
+                                                hx-target="#content" hx-swap="innerHTML" class="fs-6">video
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                            {% endwith %}
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+{% endblock %}
+
+
+{#{% block domready %}#}
+{#    $('#modules').sortable({#}
+{#    stop: function(event, ui) {#}
+{#    modules_order = {};#}
+{#    $('#modules').children().each(function(){#}
+{#    // update the order field#}
+{#    $(this).find('.order').text($(this).index() + 1);#}
+{#    // associate the module's id with its order#}
+{#    modules_order[$(this).data('id')] = $(this).index();#}
+{#    });#}
+{#    $.ajax({#}
+{#    type: 'POST',#}
+{#    url: '{% url "module_order" %}',#}
+{#    contentType: 'application/json; charset=utf-8',#}
+{#    dataType: 'json',#}
+{#    data: JSON.stringify(modules_order)#}
+{#    });#}
+{#    }#}
+{#    });#}
+{#    $('#module-contents').sortable({#}
+{#    stop: function(event, ui) {#}
+{#    contents_order = {};#}
+{#    $('#module-contents').children().each(function(){#}
+{#    // associate the module's id with its order#}
+{#    contents_order[$(this).data('id')] = $(this).index();#}
+{#    });#}
+{#    $.ajax({#}
+{#    type: 'POST',#}
+{#    url: '{% url "content_order" %}',#}
+{#    contentType: 'application/json; charset=utf-8',#}
+{#    dataType: 'json',#}
+{#    data: JSON.stringify(contents_order),#}
+{#    });#}
+{#    }#}
+{#    });#}
+{#{% endblock %}#}

@@ -1,0 +1,24 @@
+{% load embed_video_tags %}
+{% block title %}
+    {{ object.title }}
+{% endblock %}
+
+
+<section class="wrapper-video" class="text-center mt-5">
+
+    {# you can just embed #}
+    {#    {% video item.video 'huge' %}#}
+    {% video item.url as my_video %}
+
+
+    {% video my_video '100% x 100%' %}
+
+    {% endvideo %}
+
+    <div class="text-center">
+        <p>{{ item.title }}</p>
+    </div>
+
+
+</section>
+

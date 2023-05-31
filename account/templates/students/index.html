@@ -1,0 +1,174 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="row">
+            <div class="col-xxl-8 ">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4  col-xxl-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 rounded-3"
+                             style="background-color: #E8E46E">
+                            <span class="display-6 lh-1 text-orange mb-0"><i class="fas fa-tv fa-fw"></i></span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="9"
+                                        data-purecounter-delay="200"
+                                        data-purecounter-duration="0">{{ courses.count }}</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-light">Kurslar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xxl-4 mb-3 ">
+                        <div class="d-flex justify-content-center align-items-center p-4  bg-opacity-15 rounded-3"
+                             style="background-color: #C1DEAE">
+                        <span class="display-6 lh-1 text-orange mb-0"><i
+                                class="fas fa-clipboard-check fa-fw"></i></span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="9"
+                                        data-purecounter-delay="200" data-purecounter-duration="0">{{ complated }}</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-light">tugallangan kurslar</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-xxl-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4  bg-opacity-15 rounded-3"
+                             style="background-color: #F2F5C8">
+                            <span class="display-6 lh-1 text-orange mb-0"><i class="fas fa-medal fa-fw"></i></span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="purecounter mb-0 fw-bold" data-purecounter-start="0"
+                                        data-purecounter-end="9"
+                                        data-purecounter-delay="200"
+                                        data-purecounter-duration="0">{{ user.sertificate.count }}</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-light">Sertifikatlar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card">
+                        <div class="p-3 fw-bolder d-flex justify-content-between">
+                            <h2>Kurslar ro'yxati</h2>
+                            {#                            <form class="col-md-8 search-wrapper" action="">#}
+                            {#                                <span class="fas fa-search"></span>#}
+                            {#                                <input name="search_courses" type="search" placeholder="search">#}
+                            {#                            </form>#}
+                        </div>
+                        <hr>
+                        <div class="list-courses">
+
+                            {% for group in courses %}
+                                {% with group.course as cours %}
+                                    <div class="card shadow p-2 my-3">
+                                        <div class="row g-0">
+                                            <div class="col-lg-5">
+                                                {% if cours.img %}
+                                                    <img src="{{ cours.img.url }}" class="img-fluid rounded-2"
+                                                         alt="Card image">
+                                                {% else %}
+                                                    <img src="{% static 'courses/images/background/curved1.jpg' %}"
+                                                         class="img-fluid rounded-2"
+                                                         alt="Card image">
+                                                {% endif %}
+
+                                            </div>
+                                            <div class="col-lg-7">
+                                                <div class="card-body">
+                                                    <!-- Badge and rating -->
+
+                                                    <!-- Title -->
+                                                    <h5 class="card-title"><a
+                                                            href="{% url 'account:student_course_detail'  group.slug cours.slug %}">{{ cours.title }}
+                                                    </a></h5>
+                                                    <p>{{ cours.overview|truncatechars:150 }}</p>
+
+                                                    <!-- Info -->
+                                                    <ul class="list-inline">
+
+                                                        <li class="list-inline-item text-dark mb-1 mb-sm-0"><i
+                                                                class="fas fa-table text-orange me-2"></i>{{ cours.modules.count }}
+                                                            mavzu
+                                                        </li>
+                                                        <li class="list-inline-item text-dark mb-1 mb-sm-0"><i
+                                                                class="fas fa-clock"></i>time ~ {{ group.time }}
+                                                        </li>
+                                                        <li class="list-inline-item text-dark mb-1 mb-sm-0">group
+                                                            active~
+                                                            {% if group.active %}
+                                                                <i style="font-size: 1.2rem;color: green; font-weight: bold;"
+                                                                   class="rounded-circle  fas fa-check-square"></i>
+                                                            {% else %}
+                                                                <i style="font-size: 1.2rem;color: red;"
+                                                                   class="rounded-circle fas fa-minus-square "></i>
+                                                            {% endif %}
+                                                        </li>
+
+                                                    </ul>
+
+                                                    <!-- Price and avatar -->
+                                                    <div class="d-sm-flex justify-content-sm-between align-items-center">
+                                                        <!-- Avatar -->
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar">
+                                                                {% if cours.owner.img %}
+                                                                    <img width="50" class="avatar-img rounded-circle"
+                                                                         src="" alt="avatar">
+                                                                {% else %}
+                                                                    <img width="50" class="avatar-img rounded-circle"
+                                                                         src="{% static 'courses/home/images/man.png' %}"
+                                                                         alt="avatar">
+                                                                {% endif %}
+
+                                                            </div>
+                                                            <p class="mb-0 ms-2"><a href="#"
+                                                                                    class="text-dark">{{ cours.owner.get_full_name }}</a>
+                                                            </p>
+                                                        </div>
+                                                        <!-- Price -->
+                                                        <div class="mt-3 mt-sm-0">
+                                                            <a href="{% url 'account:student_course_detail' group.slug cours.slug %}"
+                                                               class="btn btn-dark">View more</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endwith %}
+
+                            {% endfor %}
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-xxl-4">
+                <div id="calendar"></div>
+                {#                <div class="card p-3 mt-3">#}
+                {#                    <h2>Xabarlar</h2>#}
+                {#                    <hr>#}
+                {#                </div>#}
+            </div>
+
+        </div>
+        <div class="row">
+
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="{% static 'dashboard/js/calendar.js' %}"></script>
+{% endblock %}

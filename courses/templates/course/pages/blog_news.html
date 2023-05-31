@@ -1,0 +1,179 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}{% endblock title %}
+{% block style %}
+
+
+{% endblock style %}
+
+{% block header %}
+    {% include 'course/include/_header.html' %}
+    {% comment %} {% include 'courses/home/new/include/courses_header.html' %} {% endcomment %}
+
+{% endblock header %}
+
+{% block content %}
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs p-5">
+        <div class="container">
+
+            <ol>
+                <li><a href="{% url 'course:homepage' %}">Bosh sahifa </a></li>
+                <li>Yangiliklar</li>
+            </ol>
+            <h2>Yangiliklar</h2>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+
+                <div class="col-lg-8 entries">
+
+                    {% for object in object_list %}
+                        <article class="entry">
+
+                            <div class="entry-img">
+                                {% if object.img %}
+                                    <img src="{{ object.img.url }}" class="img-fluid">
+                                {% endif %}
+                            </div>
+
+                            <h2 class="entry-title">
+                                <a href="{% url 'single_news' object.pk %}">{{ object.title }}</a>
+                            </h2>
+
+                            <div class="entry-meta">
+                                <ul>
+
+                                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a
+                                            href="{% url 'single_news' object.pk %}">
+                                        <time datetime="2020-01-01">{{ object.date }}</time>
+                                    </a></li>
+                                    <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a
+                                            href="{% url 'single_news' object.pk %}">12 Comments</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="entry-content">
+                                <p>
+                                    {% if object.subtitle %}
+                                        {{ object.subtitle }}
+                                    {% else %}
+                                        {{ object.body|truncatewords:50|safe }}
+                                    {% endif %}
+                                </p>
+                                <div class="read-more">
+                                    <a href="{% url 'single_news' object.pk %}">Read More</a>
+                                </div>
+                            </div>
+
+                        </article><!-- End blog entry -->
+                    {% endfor %}
+
+
+                    <div class="blog-pagination">
+                        <ul class="justify-content-center align-items-center">
+                            {% if object_list.has_previous %}
+                                {% if  object_list.previous_page_number == 1 %}
+                                    <li><a href="?page=1">1</a></li>
+                                {% else %}
+                                    <li><a href="?page=1">1</a></li>
+                                    <div>&laquo;</div>
+                                    <li>
+                                        <a href="?page={{ object_list.previous_page_number }}">{{ object_list.previous_page_number }}</a>
+                                    </li>
+                                {% endif %}
+
+                            {% endif %}
+                            <li class="active"><a href="">{{ object_list.number }}</a></li>
+
+                            {% if object_list.has_next %}
+                                {% if object_list.next_page_number == object_list.paginator.num_pages %}
+
+                                    <li>
+                                        <a href="?page={{ object_list.next_page_number }}">{{ object_list.next_page_number }}</a>
+                                    </li>
+                                {% else %}
+                                    <li>
+                                        <a href="?page={{ object_list.next_page_number }}">{{ object_list.next_page_number }}</a>
+                                    </li>
+                                    <div class="mx-3">&raquo;</div>
+                                    <li>
+                                        <a href="?page={{ object_list.paginator.num_pages }}">{{ object_list.paginator.num_pages }}</a>
+                                    </li>
+                                {% endif %}
+
+                            {% endif %}
+                        </ul>
+
+                    </div>
+                </div><!-- End blog entries list -->
+
+                <div class="col-lg-4">
+
+                    <div class="sidebar">
+
+                        <h3 class="sidebar-title">Search</h3>
+                        <div class="sidebar-item search-form">
+                            <form action="{% url 'news:search_news' %}" method="get">
+                                <input type="text" name="search">
+                                <button type="submit"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div><!-- End sidebar search formn-->
+
+
+                        <h3 class="sidebar-title">Recent Posts</h3>
+                        <div class="sidebar-item recent-posts">
+                            {% for foo in resent %}
+                                <div class="post-item clearfix">
+                                    {% if foo.img %}
+                                        <img src="{{ foo.img.url }}" alt="">
+                                    {% endif %}
+                                    <h4><a href="{% url 'single_news' foo.pk %}">{{ foo.title }}</a></h4>
+                                    <time datetime="2020-01-01">{{ foo.date }}</time>
+                                </div>
+                            {% endfor %}
+                        </div><!-- End sidebar recent posts-->
+                        {% comment %}
+                        <h3 class="sidebar-title">Tags</h3>
+                        <div class="sidebar-item tags">
+                            <ul>
+                                <li><a href="#">App</a></li>
+                                <li><a href="#">IT</a></li>
+                                <li><a href="#">Business</a></li>
+                                <li><a href="#">Mac</a></li>
+                                <li><a href="#">Design</a></li>
+                                <li><a href="#">Office</a></li>
+                                <li><a href="#">Creative</a></li>
+                                <li><a href="#">Studio</a></li>
+                                <li><a href="#">Smart</a></li>
+                                <li><a href="#">Tips</a></li>
+                                <li><a href="#">Marketing</a></li>
+                            </ul>
+                        </div><!-- End sidebar tags-->
+                        {% endcomment %}
+
+                    </div><!-- End sidebar -->
+
+                </div><!-- End blog sidebar -->
+
+            </div>
+
+        </div>
+    </section><!-- End Blog Section -->
+
+    <section>
+
+    </section>
+
+{% endblock content %}
+
+{% block footer %}
+    {% include 'course/include/_footer.html' %}
+{% endblock footer %}

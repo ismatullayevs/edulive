@@ -1,0 +1,202 @@
+{% extends "courses/home/base.html" %}
+
+
+{% block title %}
+    {{ object.course }}-group:{{ object.title }}
+{% endblock %}
+{% block header %}
+
+
+    {% include 'courses/home/_header.html' %}
+    <section class="text-center bg-dark">
+        <h1 style="color:white;">
+            {{ object.course }}
+
+        </h1>
+    </section>
+    {% block main %}
+        {% if groupcourse.active %}
+            <section>
+                <h1>
+                    {{ module.title }}
+
+                </h1>
+                <div class="contents">
+                    <h3>Modules</h3>
+
+                    <ul id="modules">
+                        {% for module in object.modules.all %}
+                            {{ module.module }}
+                        {% endfor %}
+
+                        {% for m in object.modules.all %}
+                            {% with m.module as module %}
+
+
+                                <li data-id="{{ m.id }}" {% if m == module %}
+                                    class="selected"{% endif %}>
+                                    <a href="{% url "student_course_detail_module" object.id m.id %}">
+                            <span>
+                            Module <span class="order">{{ m.order|add:1 }}</span>
+                            </span>
+                                        <br>
+                                        {{ module.title }}
+                                    </a>
+                                </li>
+                            {% endwith %}
+                        {% empty %}
+                            <li>Mavzular yo'q</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="module">
+                    {{ module.description }}
+                    {% for content in module.contents.all %}
+                        salom
+                        {% with item=content.item %}
+                            <h2>{{ item.title }}</h2>
+                            {{ item.render }}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </section>
+        {% else %}
+            <section class="text-center">
+                <h3>{{ groupcourse.course }}</h3>
+                <h4>{{ groupcourse.title }}: {{ groupcourse.time }}</h4>
+                <h5 class="mt-5">Kurs hali active emas</h5>
+            </section>
+        {% endif %}
+
+    {% endblock %}
+{% endblock %}
+{% block content %}
+    <main>
+        <section>
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="sidebar-nav" id="saidbar-nav">
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                               href="#">
+                                <i class="fas fas-menu-button-wide"></i><span>Components</span><i
+                                    class="fas fa-caret-down"></i>
+                            </a>
+                            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a href="components-alerts.html">
+                                        <i class="bi bi-circle"></i><span>Alerts</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-accordion.html">
+                                        <i class="bi bi-circle"></i><span>Accordion</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-badges.html">
+                                        <i class="bi bi-circle"></i><span>Badges</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-breadcrumbs.html">
+                                        <i class="bi bi-circle"></i><span>Breadcrumbs</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-buttons.html">
+                                        <i class="bi bi-circle"></i><span>Buttons</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-cards.html">
+                                        <i class="bi bi-circle"></i><span>Cards</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-carousel.html">
+                                        <i class="bi bi-circle"></i><span>Carousel</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-list-group.html">
+                                        <i class="bi bi-circle"></i><span>List group</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-modal.html">
+                                        <i class="bi bi-circle"></i><span>Modal</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-tabs.html">
+                                        <i class="bi bi-circle"></i><span>Tabs</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-pagination.html">
+                                        <i class="bi bi-circle"></i><span>Pagination</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-progress.html">
+                                        <i class="bi bi-circle"></i><span>Progress</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-spinners.html">
+                                        <i class="bi bi-circle"></i><span>Spinners</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components-tooltips.html">
+                                        <i class="bi bi-circle"></i><span>Tooltips</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li><!-- End Components Nav -->
+
+                    </ul>
+
+                    {% regroup object.modules.all by date|date:'W' as modules %}
+
+                    <ul>
+                        {% for module in modules %}
+                            <li>{{ forloop.counter }}
+                                <ul>
+                                    {% for modul in module.list %}
+                                        <li>{{ modul.module }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+
+                    {% for foo in object.modules.all %}
+                        {% with foo.module as module %}
+
+                        {% endwith %}
+                    {% endfor %}
+
+                </div>
+                <div class="col-md-9">
+                    {#                    {% for foo in object.modules.first %}#}
+                    {#                        {{ foo.date }}#}
+                    {#                    {% endfor %}#}
+                    {{ object.modules.first.module.contents.all }}
+                    {{ object.modules.last.groupcontents.all }}
+
+
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'courses/home/_footer.html' %}
+{% endblock %}
+

@@ -1,0 +1,336 @@
+{% extends 'course/base.html' %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}{% endblock title %}
+{% block style %}
+
+{% endblock style %}
+
+{% block header %}
+    {% include 'course/include/_header.html' %}
+{% endblock header %}
+
+{% block content %}
+
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs text-center p-5" data-aos="fade-in">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb text-center">
+                <li class="breadcrumb-item"><a href="{% url 'course:course_list' %}">Kurslar</a></li>
+                <li class="breadcrumb-item"><a
+                        href="{% url 'course:course_list_subject' course.subject.slug %}">{{ course.subject.slug }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ object.title }}</li>
+            </ol>
+        </nav>
+        <div class="container">
+            <h2>{{ object.title }}</h2>
+        </div>
+    </div><!-- End Breadcrumbs -->
+
+
+    {% comment %} course {% endcomment %}
+
+
+    <!-- ======= Cource Details Section ======= -->
+
+
+    <section id="course-details" class="course-details">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <img width="800" height="450" src="{{ object.img.url }}" class="img-fluid mb-3" alt="">
+                    <h3>{{ object.title }}</h3>
+                    <p>
+                        {{ object.overview }}
+                    </p>
+                </div>
+                <div class="col-lg-4">
+
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Kurs narxi</h5>
+                        <p>{{ object.price|intcomma }} <b>UZS</b></p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Ma'ruzalar</h5>
+                        <p>{{ object.modules.count }}</p>
+                    </div>
+
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Kurs materiallridan foydalanish</h5>
+                        <p><i class="bi bi-infinity"></i></p>
+                    </div>
+                    <div class="course-info d-flex justify-content-between align-items-center">
+                        <h5>Mentor</h5>
+                        <p><a href="#">{{ object.owner.get_full_name }}</a></p>
+                    </div>
+                    <div class="course-info d-flex justify-content-end align-items-center pt-3">
+                        <div>
+                            {% if r_user in group.students.all %}
+                                <a href="{% url 'account:student_course_detail' group.slug course.slug %}"
+                                   class='btn btn-outline-success'>Kursga
+                                    kirish</a>
+                            {% elif request.user.is_authenticated %}
+
+                                <button type="button" class="btn btn-outline-dark "
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">
+                                    Ro'yxatdan o'tish
+                                </button>
+
+                            {% else %}
+                                <a href="{% url 'account:log_in' %}?next={% url 'course:course_detail' course.slug %}"
+                                   class='btn btn-outline-dark'>Ro'yxatdan
+                                    o'tish</a>
+
+                            {% endif %}
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Cource Details Section -->
+
+    <!-- ======= Cource Details Tabs Section ======= -->
+    <section id="cource-details-tabs" class="cource-details-tabs">
+        <div class="container" data-aos="fade-up">
+
+            <div class="row">
+                <div class="col-lg-3">
+                    <ul class="nav nav-tabs flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">Mentor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Kurs dasturi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Sertifikat</a>
+                        </li>
+                        {% comment %}
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-4">Nostrum qui quasi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#tab-5">Iusto ut expedita aut</a>
+                        </li>
+                        {% endcomment %}
+                    </ul>
+                </div>
+                <div class="col-lg-9 mt-4 mt-lg-0">
+                    <div class="tab-content">
+                        <!--Mentor -->
+                        <div class="tab-pane active show" id="tab-1">
+                            <div class="row">
+                                <div class="col-lg-4 text-center order-1 order-lg-1">
+                                    {% if object.owner.profile_image %}
+                                        <img src="{{ object.owner.profile_image.url }}"
+                                             alt="{{ object.owner.profile_image }}" class="img-fluid">
+                                    {% else %}
+                                        <img src="{{ object.img.url }}" alt="" class="img-fluid">
+
+                                    {% endif %}
+                                </div>
+                                <div class="col-lg-8 details order-2 order-lg-2">
+
+                                    <h3>Architecto ut aperiam autem id</h3>
+                                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila
+                                        parde sonata raqer a videna mareta paulona marka</p>
+                                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum
+                                        eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat
+                                        minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui
+                                        similique accusamus nostrum rem vero</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--kurs dasturi -->
+                        <div class="tab-pane" id="tab-2">
+                            <section id="faq" class="faq">
+                                <div class="container" data-aos="fade-up">
+
+
+                                    <ul class="faq-list accordion" data-aos="fade-up">
+
+                                        {% for module in object.modules.all %}
+                                            <li>
+                                                <a data-bs-toggle="collapse" class="collapsed"
+                                                   data-bs-target="#faq{{ forloop.counter }}">{{ module.title }} <i
+                                                        class="bx bx-chevron-down icon-show"></i><i
+                                                        class="bx bx-x icon-close"></i></a>
+                                                <div id="faq{{ forloop.counter }}" class="collapse"
+                                                     data-bs-parent=".faq-list">
+                                                    <p>
+                                                        {{ module.description }}
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="tab-pane" id="tab-3">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-2">
+                                    <h3>Sertifikat</h3>
+                                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim
+                                        fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis
+                                        aut</p>
+                                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis
+                                        quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae
+                                        sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et
+                                        harum voluptatem optio quae</p>
+                                </div>
+                                <div class="col-lg-4 text-center order-1 order-lg-1">
+                                    <img src="{% static 'courses/images/svg_free/one_million1.jpg' %}" alt=""
+                                         class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab-4">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-1">
+                                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
+                                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas
+                                        iure porro quis delectus</p>
+                                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam
+                                        necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in
+                                        consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a
+                                        laborum inventore</p>
+                                </div>
+                                <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    <img src="assets/img/course-details-tab-4.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab-5">
+                            <div class="row">
+                                <div class="col-lg-8 details order-2 order-lg-1">
+                                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
+                                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro
+                                        quia.</p>
+                                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae
+                                        ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet.
+                                        Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                                </div>
+                                <div class="col-lg-4 text-center order-1 order-lg-2">
+                                    <img src="assets/img/course-details-tab-5.png" alt="" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Cource Details Tabs Section -->
+    <div class="modal fade fn-size col-md-6" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 50rem">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kursga yozilish</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex justify-content-between w-100 p-5 p-5">
+
+                    <form action="{% url "account:student_enroll_course" %}" method='post'
+                          enctype='multipart/form-data' style="list-style:none;">
+                        <li>
+                            <h5>{{ enroll.group.label|title }}</h5>
+                            {% render_field enroll.group class='form-control fn-size mb-3' %}
+
+                        </li>
+                        {% if enroll.pasport and enroll.date_of_birth %}
+                            <li class="d-flex justify-content-between align-items-end">
+                                <div>
+                                    <img style="width: 100%" class="img-responsive img-thumbnail"
+                                         src="{% static 'courses/images/passport/passport.jpg' %}" alt="">
+                                    <h6>{{ enroll.pasport.label }}</h6>
+                                    {{ enroll.pasport }}
+                                    {{ enroll.pasport.help_text }}
+                                </div>
+                                <div>
+                                    <img style="width: 100%" class="img-responsive img-thumbnail"
+                                         src="{% static 'courses/images/passport/selfie.jpg' %}" alt="">
+
+                                    <h6>{{ enroll.selfi_pasport.label }}</h6>
+                                    {{ enroll.selfi_pasport }}
+                                    {{ enroll.selfi_pasport.help_text }}
+
+                                </div>
+
+
+                            </li>
+
+
+
+                            <li>
+                                <h5>{{ enroll.date_of_birth.label }}</h5>
+                                {% render_field enroll.date_of_birth class='form-control fn-size mb-3' type='date' %}
+                            </li>
+
+                        {% endif %}
+                        {{ enroll.course }}
+                        <hr>
+                        <div>
+
+                            <div class="">
+                                <h5>Kurs</h5>
+                                <h6>{{ course }}</h6>
+
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5>Narxi</h5>
+                                <h6>{{ course.price|intcomma }} <b>UZS</b></h6>
+                            </div>
+
+                            <div>
+                                <input class="m-2" type="checkbox" required><span>Bizning kurslarimizni sotib olish orqali siz <a
+                                    class="text-primary" href="{% url 'news:offerta' %}">ommaviy oferta</a> da ko'rsatilgan shartlarga rozi bo'lasiz. </span>
+
+                            </div>
+                            <hr>
+                            <button type="submit" style="cursor: pointer;
+                            border: 1px solid #ebebeb;
+                            border-radius: 6px;
+                            background: linear-gradient(to top, #f1f2f2, white);
+                            width: 200px;
+                            height: 42px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;"><img style="width: 160px;
+                            height: 20px;" src="http://cdn.payme.uz/buttons/button_big_UZ_LATN_UZ.svg"></button>
+                        </div>
+
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block footer %}
+    {% include 'course/include/_footer.html' %}
+{% endblock footer %}

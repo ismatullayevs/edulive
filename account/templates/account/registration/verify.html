@@ -1,0 +1,141 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="limiter">
+        <div class="container-login100">
+
+            <div class="wrap-login100">
+
+                <form method="post" class="login100-form validate-form">
+
+                    {% csrf_token %}
+                    <span style="color: gray; padding: 1em 0;" class="p-b-43">
+                    {% if phone %}
+                        Verifikatsiya kodi <b>+{{ phone }} </b> raqamiga yuborildi
+
+                    {% else %}
+                        <code>Verifikatsiya raqami aniqlanmadi</code>
+                    {% endif %}
+
+
+                    </span>
+
+                    <div class="wrap-input100 validate-input">
+                        {{ form.code }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ form.code.label }}</span>
+                    </div>
+                    {% for error in form.code.errors %}
+                        <code>{{ error }}</code>
+                    {% endfor %}
+                    {% for message in messages %}
+                        <code>{{ message }}</code>
+                    {% endfor %}
+                    <div class="resend_block">
+                        Sms kelmadimi ? unda qayta yuboring
+                        <button type="button" class="resend" id="resend"><i class="bi bi-repeat"></i></button>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            yuborish
+                        </button>
+                    </div>
+
+
+                </form>
+
+                <div class="login100-more"
+                     style="background-image: url({% static 'account/images/backgrouund/img01.png' %});">
+                    <div class="prev">
+                        <a href="{% url 'account:sign_up' %}">
+                            <i class="bi bi-arrow-left-circle"></i>
+                        </a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% block js %}
+    <script type="application/javascript">
+        let sms_btn = document.getElementById('resend')
+        const activateTimer = (time) => {
+
+            if (time.toString().length < 2) {
+                sms_btn.innerHTML = `<code>0${time}:00</code>`
+            } else {
+                sms_btn.innerHTML = `<code>${time}:00</code>`
+            }
+
+            let minutes = time - 1
+            let seconds = 60
+            let displaySeconds
+            let displayMinutes
+
+            timer = setInterval(() => {
+                sms_btn.setAttribute('disabled', '')
+                seconds--
+                if (seconds < 0) {
+                    seconds = 59
+                    minutes--
+                }
+                if (minutes.toString().length < 2) {
+                    displayMinutes = '0' + minutes
+                } else {
+                    displayMinutes = minutes
+                }
+                if (seconds.toString().length < 2) {
+                    displaySeconds = '0' + seconds
+                } else {
+                    displaySeconds = seconds
+                }
+
+                if (minutes === 0 && seconds === 0) {
+                    setTimeout(() => {
+                        clearInterval(timer)
+                        sms_btn.removeAttribute('disabled')
+                        sms_btn.innerHTML = '<i class="bi bi-repeat"></i>'
+                    })
+
+                }
+                sms_btn.innerHTML = `<code>${displayMinutes}:${displaySeconds}</code>`
+            }, 1000)
+        }
+
+        let resend = document.getElementById('resend')
+        const csrftoken = document.getElementsByName('csrfmiddlewaretoken')[0].defaultValue
+        const url = '{% url 'account:resend' %}'
+
+
+        resend.addEventListener('click', (e) => {
+            console.log('event')
+            activateTimer(2)
+            e.preventDefault()
+            let options = {
+                method: 'POST',
+                cache: 'no-cache',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'Content-Type': 'application/json'
+                }
+            }
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => {
+                    var code = data.code
+                    console.log(code)
+                    if (code === 'None') {
+                        window.location = '{% url 'account:sign_up' %}'
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        })
+    </script>
+{% endblock %}

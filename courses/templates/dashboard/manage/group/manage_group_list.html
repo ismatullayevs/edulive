@@ -1,0 +1,113 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% load course %}
+
+
+{% block content %}
+    <main>
+        <div class="">
+            <div class="projects">
+                {#            msg#}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ course.owner.get_full_name }}</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                {% endfor %}
+                {#            end msg#}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Gruhlar ro'yxati</h3>
+
+
+                    </div>
+                    <div class="card-body">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table width="100%">
+                                    <thead>
+                                    <tr>
+                                        <td>Guruh nomi</td>
+                                        <td>Dars vaqti</td>
+                                        <td>Start date</td>
+                                        <td>End date</td>
+                                        <td>Active</td>
+                                        <td>delete</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for group in groups %}
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'course:manage:manage_group_detail' group.slug %}">{{ group.title }}
+                                                    ({{ group.course|truncatechars:10 }})</a></td>
+                                            <td>{{ group.time }}</td>
+                                            <td>{{ group.start_date }}</td>
+                                            <td>{{ group.end_date }}</td>
+                                            <td>
+                                                {% if group.modules and group.start_date and group.end_date %}
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <div class="form-check form-switch">
+                                                            <input name="active"
+                                                                   hx-post="{% url 'course:manage:active_group' group.slug %}"
+                                                                   hx-target="this" hx-trigger="click"
+                                                                   class="form-check-input" type="checkbox"
+                                                                    {% if group.active == True %} checked{% endif %}
+                                                                   role="switch"
+                                                                   id="{{ group.slug }}">
+                                                            <label class="form-check-label"
+                                                                   for="{{ group.slug }}">faol</label>
+                                                        </div>
+                                                    </form>
+                                                {% else %}
+                                                    <p>None</p>
+                                                {% endif %}
+
+
+                                            </td>
+                                            <td>
+                                                <button hx-delete="{% url  'course:manage:delete_group' group.course.id group.slug %}"
+                                                        hx-confirm="{{ group }}ni haqiqatdan ham o'chirmoqchimisiz "
+                                                        hx-swap="outerHTML swap:1s"
+                                                        class="btn btn-outline-danger" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="O'chirish">
+                                                    <span class="fas fa-trash fs-5" title="o'chirish"></span>delete
+                                                </button>
+                                            </td>
+                                            {#                                            <td><span class="status purple"></span>{{ group.active }}</td>#}
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {#                        <div class="module">#}
+                        {#                            <div id="courseform" class=""></div>#}
+                        {##}
+                        {#                            {% for group in groups %}#}
+                        {#                                {{ group }}#}
+                        {#                                {% include "dashboard/manage/group/group_detail.html" %}#}
+                        {##}
+                        {#                            {% endfor %}#}
+                        {#                        </div>#}
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+{% endblock %}
+
+
+
+
+{% block js %}
+
+{% endblock %}
+

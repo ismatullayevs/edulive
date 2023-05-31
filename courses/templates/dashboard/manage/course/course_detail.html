@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<div hx-target="this">
+    <div class="course-info">
+        <div>
+            <a href="{% url 'course:manage:manage_course_detail' course.id %}">
+                {% if course.img %}
+                    <img src="{{ course.img.url }}"
+                         alt="">
+                {% else %}
+                    <img src="{% static 'courses/images/background/white-curved.jpeg' %}"
+                         alt="">
+                {% endif %}
+            </a>
+
+        </div>
+        <div class="course-title">
+            <div class="title">
+                <a href="{% url 'course:manage:manage_course_detail' course.id %}"
+                   style="text-decoration: none;color:#2b2d42">
+                    <h3>{{ course.title }}</h3>
+
+                    <small>{{ course.overview|truncatewords:30 }}</small>
+                </a>
+
+                <div class="course_manage_btns">
+                    <button hx-get="{% url 'course:manage:course_edit' course.id %}" hx-encoding="multipart/form-data"
+                            hx-swap="outerHTML"
+                            class="btn btn-outline-warning mx-4 "
+                            title="Tahrirlash">
+                        <span class="fas fa-edit fs-5"></span>update
+
+                    </button>
+
+                    <button hx-get="{% url 'course:manage:course_delete' course.id %}"
+                            hx-swap="outerHTML"
+                            {#                        hx-confirm = 'Are you sure delet this course'#}
+                            class="btn btn-outline-danger mx-4 "
+                            title="o'chirish">
+                        <span class="fas fa-trash fs-5"></span>delete
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+{% block js %}
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+
+{% endblock %}

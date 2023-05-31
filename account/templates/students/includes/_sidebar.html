@@ -1,0 +1,53 @@
+{% load static %}
+{% url 'account:stdudent_dashboard' as dashboard %}
+{% url 'account:student_course_list' as courses %}
+{% url 'account:student_quiz_list' as quiz_list %}
+{% url 'account:payment_info' as payment_info %}
+{#{% url '' as Students %}#}
+{#{% url '' as add_quiz %}#}
+{#{% url '' as notice %}#}
+<div class="sidebar" style="background-color: #2b2d42; ">
+    <a href="{% url 'course:homepage' %}" style="text-decoration: none;">
+        <div class="sidebar-brand" style="display:flex; align-items:center;">
+            <img width='70' src="{% static 'courses/images/logo-stable.png' %}" alt="">
+            <div class="text__stable" style='display:flex;flex-direction:column; margin-left:10px;'>
+                <span>Stable</span>
+                <span>Education</span>
+            </div>
+            {% comment %} <h2><span class="fab fa-accusoft"></span><span>Stable Education </span></h2> {% endcomment %}
+        </div>
+
+    </a>
+
+    <div class="sidebar-menu">
+        <ul>
+            <li><a class="{% if request.path == dashboard %} active{% endif %}"
+                   href="{% url 'account:stdudent_dashboard' %}"><span
+                    class="fas fa-igloo"></span><span>Dashboard</span></a></li>
+            <li><a class="{% if request.path == courses %} active {% endif %}"
+                   href="{% url 'account:student_course_list' %}"><span
+                    class=" fas fa-clipboard-list"></span><span>Courses</span></a>
+
+
+            <li><a class="{% if request.path == quiz_list %} active{% endif %}"
+                   href="{% url 'quiz:student_quiz_list' %}"><span
+                    class="fas fa-question-circle"></span><span>Nazorat Ishi</span></a></li>
+            {#            <li><a href=""><span class="fas fa-bell"></span><span>E`lonlar</span></a></li>#}
+            <li><a class="{% if request.path == payment_info %} active{% endif %}" href="{{ payment_info }}"><span
+                    class="fas fa-credit-card"></span><span>To'lovlar</span></a></li>
+        </ul>
+
+    </div>
+    <div class="stdudent-settings position-absolute bottom-0 h5">
+        <ul>
+            <li class="p-2"><a class="text-decoration-none p-3" style="color: white;"
+                               href="{% url 'account:user_edit_profile' %}"><span class="fas fa-wrench"></span><span
+                    class="m-2">Profil tahrirlash</span></a></li>
+            <li class="p-2"><a class="text-decoration-none p-3" style="color: white;"
+                               href="{% url 'account:log_out' %}"><span class="fas fa-arrow-circle-left"></span><span
+                    class="m-2">Chiqish</span></a></li>
+        </ul>
+
+    </div>
+</div>
+

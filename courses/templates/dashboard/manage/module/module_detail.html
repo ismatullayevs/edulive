@@ -1,0 +1,30 @@
+<div hx-target="this" class="mx-3 my-3 py-3 px-3 bg-white shadow border border-gray-100">
+    <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Mavzu:{{ modul.order|add:1 }} {{ modul.title }}
+    </h3>
+
+    <p>
+        {{ modul.description|truncatewords:40 }}</p>
+
+    <div class="d-flex justify-content-evenly mt-3">
+
+        <button  hx-get="{% url 'course:manage:update-modul' modul.id %}" hx-swap="outerHTML"
+                title="tahrirlash"
+                class="btn btn-outline-warning"><span class="fas fa-edit fs-5"></span>
+            update
+        </button>
+
+        <button hx-delete="{% url 'course:manage:delete-modul' modul.id %}" hx-confirm="{{ modul }}ni o'chirish"
+                hx-swap="outerHTML swap:1s" title="o'chirish"
+                class="btn btn-outline-danger "><span class="fas fa-trash fs-5"></span>
+            delete
+        </button>
+        <a href="{% url 'course:manage:module_content_list' modul.id %}">
+            <button title="mavzu elmentlarini qo'shish"
+                    class="btn btn-outline-dark"><span class="fas fa-shapes fs-5"></span>
+                mavzu elm
+            </button>
+        </a>
+
+    </div>
+</div>

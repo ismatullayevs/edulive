@@ -1,0 +1,69 @@
+{% load static %}
+
+<div hx-target="this">
+    {% with module.module as m %}
+
+        <div class="d-flex justify-content-evenly align-items-baseline">
+            <h3>{{ m.title|truncatechars_html:50 }}</h3>
+            <code>{{ module.date }} {{ module.date|date:'l' }}</code>
+        </div>
+        <hr>
+        <div>
+            <div data-toggle="tooltip"
+                 data-placement="top"
+                 title="zoom link"
+                 class="card-header d-flex justify-content-evenly fs-5">
+
+                <a hx-get="{% url 'course:manage:group_content_create' module.id 'zoom' %}" hx-target="#contents"
+                   hx-swap="afterbegin"
+                   class="fs-4 text-decoration-none" style="color: #2b2d42; "
+                > <img
+                        width='50'
+                        src="{% static 'dashboard/img/zoom.png' %}"
+                        alt=""> </a>
+
+                <a hx-get="{% url 'course:manage:group_content_create' module.id 'text' %}" hx-target="#contents"
+                   hx-swap="afterbegin"
+                   class="fs-4 text-decoration-none" style="color: #2b2d42; ">
+                    <img data-toggle="tooltip"
+                         data-placement="top"
+                         title="zoom link"
+                         width='50'
+                         src="{% static 'dashboard/img/txt-file.png' %}"
+                         alt=""> </a>
+
+                <a hx-get="{% url 'course:manage:group_content_create' module.id 'image' %}" hx-target="#contents"
+                   hx-swap="afterbegin"
+                   class="fs-4 text-decoration-none" style="color: #2b2d42; "
+                > <img data-toggle="tooltip"
+                       data-placement="top"
+                       title="zoom link"
+                       width='50'
+                       src="{% static 'dashboard/img/picture.png' %}"
+                       alt=""> </a>
+
+                <a hx-get="{% url 'course:manage:group_content_create' module.id 'video' %}" hx-target="#contents"
+                   hx-swap="afterbegin"
+                   class="fs-4 text-decoration-none" style="color: #2b2d42; ">
+                    <img data-toggle="tooltip"
+                         data-placement="top"
+                         title="zoom link"
+                         width='50'
+                         src="{% static 'dashboard/img/youtube.png' %}"
+                         alt=""> </a>
+
+
+            </div>
+            <div id="contents"></div>
+            {% for content in module.groupcontents.all %}
+                {% with content.item as item %}
+                    {% include 'dashboard/manage/group/htmx_form/group_content_detail.html' %}
+                {% endwith %}
+            {% endfor %}
+
+
+        </div>
+    {% endwith %}
+
+</div>
+

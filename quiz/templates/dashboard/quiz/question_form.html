@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+<div hx-target="this" class="m-3 p-2">
+    <form action="" class="">
+        {% csrf_token %}
+        <div class="row mt-3">
+            <fieldset>
+                <legend>Test Savoli</legend>
+                {{ form|crispy }}
+            </fieldset>
+        </div>
+        <button hx-post="." class="btn btn-outline-dark mt-3">saqlash</button>
+    </form>
+</div>

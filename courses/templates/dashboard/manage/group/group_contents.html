@@ -1,0 +1,169 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <h3>{% now 'F d Y' %}</h3>
+        <div align='center' class="card_course_detail"
+             style="background-image: url('{% static 'courses/images/background/curved0.jpg' %}') ">
+            <div>
+                <h1 style="font-size: 4rem;font-weight: bold;letter-spacing: 6px;">{{ object.title }} </h1>
+                {#                {% now 'H:i:s:u' %}#}
+                <span>{{ object.time }}</span>
+            </div>
+            <div class="card__manage p-5  blur d-flex justify-content-evenly">
+                <div class="d-flex gap-3 align-items-center">
+                    <img width='50' src="{% static 'dashboard/images/calendar.png' %}" alt=""> <a
+                        class="fs-4 text-decoration-none" style="color: #2b2d42; "
+                        href="{% url 'course:manage:manage_group_detail' group.slug %}">dars jadvali</a>
+                </div>
+                <div class="d-flex gap-3 align-items-center">
+                    <img width='50' src="{% static 'dashboard/images/zoom.png' %}" alt=""> <a
+                        class="fs-4 text-decoration-none" style="color: #2b2d42; "
+                        href="{% url 'course:manage:manage_group_add_contents' group.slug %}">zoom link</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="resent-grid">
+            <div class="projects">
+
+                <div class="card">
+                    <div class="card-header justify-content-center">
+                        <h2>{{ module.title|capfirst }}</h2>
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "text" %}"#}
+                        {#                                   class="button">text</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "image" %}"#}
+                        {#                                   class="button">image</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "file" %}"#}
+                        {#                                   class="button">file</a><span class="fas fa-arrow-right"></span></button>#}
+                        {#                        <button><a style="text-decoration: none;color:white;"#}
+                        {#                                   href="{% url "module_content_create" module.id "video" %}"#}
+                        {#                                   class="button">video</a><span class="fas fa-arrow-right"></span></button>#}
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="course-module">
+                            {% with course=module.course %}
+                                <div class="contents">
+                                    <h3>Modules</h3>
+                                    <ul id="modules">
+                                        {% with group.modules.all as modules %}
+
+
+                                            {% for m in modules %}
+                                                {% with m.module as module %}
+                                                    <li>
+                                                        <a href="">{{ module.id }}{{ module.title }}</a>
+                                                    </li>
+                                                    {#                                                {{ module }}#}
+                                                {% endwith %}
+
+                                                {#                                            <li data-id="{{ m.id }}" {% if m == module %}#}
+                                                {#                                                class="selected"{% endif %}>#}
+                                                {#                                                <a href="">#}
+                                                {#                                                    <span class="order">{{ m.order|add:1 }}</span>)#}
+                                                {#                                                    {{ m.title }}#}
+                                                {#                                                </a>#}
+                                                {#                                            </li>#}
+                                            {% empty %}
+                                                <li>hali mavzular yo'q</li>
+                                            {% endfor %}
+                                        {% endwith %}
+                                    </ul>
+
+                                </div>
+                                <div class=" mt-3 course-content">
+                                    <h3>Mavzu elementlari:</h3>
+                                    <div id="module-contents">
+
+                                        {% for content in module.contents.all %}
+                                            {% include 'dashboard/manage/content/content_details.html' %}
+                                        {% empty %}
+                                            <p>mavzu elementlari hali yo'q</p>
+                                        {% endfor %}
+                                        <div id="content"></div>
+
+                                    </div>
+
+
+                                    <div class="card-header fs-5">
+
+                                        {#                                        <button hx-get=""#}
+                                        {#                                                hx-target="#content" hx-swap="afterend" class="fs-6">text#}
+                                        {#                                        </button>#}
+                                        {#                                        <button hx-get=""#}
+                                        {#                                                hx-target="#content" hx-swap="afterend" class="fs-6">image#}
+                                        {##}
+                                        {#                                        </button>#}
+                                        {#                                        <button hx-get=""#}
+                                        {#                                                hx-target="#content" hx-swap="afterend" class="fs-6">file#}
+                                        {##}
+                                        {#                                        </button>#}
+                                        {#                                        <button hx-get=""#}
+                                        {#                                                hx-target="#content" hx-swap="afterend" class="fs-6">video</button>#}
+
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "text" %}"
+                                                hx-target="#content" hx-swap="afterend" class="fs-6">text
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "image" %}"
+                                                hx-target="#content" hx-swap="afterend" class="fs-6">image
+
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "file" %}"
+                                                hx-target="#content" hx-swap="afterend" class="fs-6">file
+
+                                        </button>
+                                        <button hx-get="{% url "course:manage:module_content_create" module.id "video" %}"
+                                                hx-target="#content" hx-swap="afterend" class="fs-6">video
+                                        </button>
+
+
+                                    </div>
+
+                                </div>
+                            {% endwith %}
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>O'quvchilar ro'yxati</h3>
+
+                    <button>See all <span class="fas fa-arrow-right"></span></button>
+                </div>
+                <div class="card-body">
+                    {% for content in module.contents.all %}
+                        <div class=" mt-2" data-id="{{ content.id }}">
+
+
+                        </div>
+                    {% empty %}
+                        <p>mavzu elementlari hali yo'q</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+{% endblock %}
+
+{% block js %}
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+
+{% endblock %}
+

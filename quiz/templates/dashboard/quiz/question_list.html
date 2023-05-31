@@ -1,0 +1,47 @@
+{% extends "dashboard/layout/base.html" %}
+{% load crispy_forms_tags %}
+{% load course %}
+{% load static %}
+
+
+{% block title %}
+    quiz
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'quiz/css/quiz_style.css' %}">
+{% endblock style %}
+{% block content %}
+    <main>
+        {#        <h2 class="mb-3 text-center">{{ quiz_id.course }}</h2>#}
+        <div class="block__btn">
+            <button hx-target="#wrapper-form" hx-get="{% url 'quiz:create_question' quiz.pk %}" hx-swap="innerHTML"
+                    class="btn btn-warning">savol qo'shish
+            </button>
+        </div>
+        <div class="wrapper-quiz">
+
+            <div class="wrapper-questions">
+
+
+                <div class="block__questions">
+
+                    <ul class="list__questions" id="list_question">
+
+                        {% for question in questions %}
+                            {% include 'dashboard/manage/detail_question.html' %}
+                        {% endfor %}
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="wrapper-form" id="wrapper-form">
+
+
+            </div>
+        </div>
+    </main>
+{% endblock content %}

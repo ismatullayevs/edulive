@@ -1,0 +1,33 @@
+{% extends "dashboard/layout/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% if object %}
+        Edit course "{{ object.title }}"
+    {% else %}
+        Yangi Kurs Yaratish
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>
+            {% if object %}
+                Edit course "{{ object.title }}"
+            {% else %}
+                Yangi Kurs Yaratish
+            {% endif %}
+        </h1>
+        <div class="module">
+            <form method="post" class="d-grid gap-3">
+                {{ form|crispy }}
+                {% csrf_token %}
+                <p>
+                    <button class='btn btn-outline-success m-3' type='submit'><span class='fas fa-plus-circle'></span>
+                        qo'shish
+                    </button>
+                </p>
+            </form>
+        </div>
+    </main>
+
+{% endblock %}

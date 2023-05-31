@@ -1,0 +1,108 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <main>
+        <div align='center' class="card_course_detail"
+             style="background-image: url('{% static 'courses/images/background/curved0.jpg' %}') ">
+
+
+            <div>
+                <h1>{{ course.title|capfirst }}</h1>
+                <span>({{ course.active }})</span>
+            </div>
+
+
+            <div class="card__manage blur">
+                <div class="author__course">
+                    {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" alt="">
+                    {% else %}
+                        <img src="{% static 'courses/images/man.png' %}" alt="">
+
+
+                    {% endif %}
+
+                    <div class="author__name">
+                        <h3>{{ course.owner.get_full_name }}</h3>
+                        <small>{{ course.owner }}</small>
+                    </div>
+
+                </div>
+
+                {#                <div class="manage__course">#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/document.png' %}" alt=""> mavzu</a>#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/notebook.png' %}" alt=""> mavzu tarkibi</a>#}
+                {#                    <a href=""><img width='35' src="{% static 'dash/images/quiz.png' %}" alt=""> test</a>#}
+                {##}
+                {#                </div>#}
+            </div>
+        </div>
+
+        <div class="resent-grid course-resendgrid">
+            <div class="projects">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Kurs Mavzulari</h3>
+                        <button type="button" hx-get="{% url 'course:manage:create_modul_form' %}"
+                                hx-target="#modulforms"
+                                hx-swap="afterend"
+                                class="ml-3  px-4 py-2  rounded-md ">
+                            mavzu qo'shish
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+
+                            <div id="modulforms" class="">
+
+                            </div>
+
+                            <div class=" border-t border-gray-100">
+                                {% with course.modules.all as modules %}
+                                    {% for modul in modules %}
+
+                                        {% include "dashboard/manage/module/module_detail.html" %}
+
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+
+
+                <div class="card-header">
+                    <h3>Guruhlar ro'yxati</h3>
+                    <button type='submit' hx-get='{% url 'course:manage:group_form' course.id %}'
+                            hx-target="#groupforms"
+                            hx-swap="afterend">guruh qo'shish
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div class="table-responsive">
+
+                        <div id="groupforms" class=""></div>
+
+                        {% for group in groups %}
+
+                            {% include 'dashboard/manage/group/group_detail.html' %}
+
+                        {% empty %}
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock %}
+
+

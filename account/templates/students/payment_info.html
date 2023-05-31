@@ -1,0 +1,65 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block content %}
+    <main>
+
+        <div class="table-responsive border-0">
+            <table class="table border table-dark-gray align-middle p-4 mb-0 table-hover">
+                <!-- Table head -->
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col" class="border-0 rounded-start">Sana</th>
+                    <th scope="col" class="border-0">Kurs nomi</th>
+                    <th scope="col" class="border-0">Holati</th>
+                    <th scope="col" class="border-0">Narxi</th>
+                </tr>
+                </thead>
+                <!-- Table body -->
+                <tbody>
+                {% for object in object_list %}
+
+                    <tr>
+                        <!-- Date item -->
+                        <td>{{ object.payed_at }}</td>
+
+                        <!-- Title item -->
+                        <td>
+                            <h6 class="mt-2 mt-lg-0 mb-0"><a
+                                    href="{% url 'account:student_course_detail' object.group.slug object.course.slug %}">{{ object.course }}</a>
+                            </h6>
+                        </td>
+                        {% if object.state == 1 %}
+                            <td>
+                                <span class="badge bg-warning bg-opacity-10 text-success">Kutilmoqda</span>
+                            </td>
+                        {% elif object.state == 2 %}
+                            <td>
+                                <span class="badge bg-success bg-opacity-10 text-success">To'landi</span>
+                            </td>
+                        {% else %}
+                            <td>
+                                <span class="badge bg-success bg-opacity-10 text-success">Bekor qilindi</span>
+                            </td>
+                        {% endif %}
+
+
+                        <!-- total item -->
+                        <td style="display: table-cell">{{ object.amount }}</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+{% endblock %}

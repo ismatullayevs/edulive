@@ -1,0 +1,17 @@
+<div hx-target="this" hx-swap="outerHTML">
+    <h1>"{{ content.item }}"ni o'chirish</h1>
+    <div class="module">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Haqiqatdan ham bu ("{{ content.item }}") kursi o'chirmoqchimisiz</p>
+
+
+            <button hx-post="{% url 'course:manage:module_content_delete' content.id %}" hx-swap="outerHTML"
+                    class="btn btn-outline-danger mx-4">
+
+                <span class="fas fa-trash fs-5" title="o'chirish"></span>delete
+
+            </button>
+        </form>
+    </div>
+</div>

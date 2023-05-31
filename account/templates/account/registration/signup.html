@@ -1,0 +1,111 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form method="post" class="login100-form validate-form">
+                    {% csrf_token %}
+                    <span style="color: gray" class="login100-form-title p-b-43">
+                        Ro'yxatdan o'tish
+                    </span>
+                    {{ forms.non_field_errors }}
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.full_name }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.full_name.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.full_name.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.email }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.email.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.email.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.username }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.username.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.username.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.phone_number }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.phone_number.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.phone_number.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.password1 }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.password1.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.password1.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        {{ forms.password2 }}
+                        <span class="focus-input100"> </span>
+                        <span class="label-input100">{{ forms.password2.label }}</span>
+                    </div>
+                    <div class="error_list">
+                        {% for error in forms.password2.errors %}
+                            <code>{{ error }}</code>
+                        {% endfor %}
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Ro'yxatdan o'tish
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <span class="txt2">
+                            Ro'yxatdan o'tganmisiz ?
+                        </span>
+                        <a href="{% url 'account:log_in' %}"><i class="bi bi-box-arrow-right"></i> Kirish</a>
+                    </div>
+
+
+                </form>
+
+                <div class="login100-more"
+                     style="background-image: url({% static 'account/images/backgrouund/img01.png' %});">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+{% block js %}
+    <script type="application/javascript">
+
+    </script>
+{% endblock %}

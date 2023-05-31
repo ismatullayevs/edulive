@@ -1,0 +1,27 @@
+<div hx-target="this" class="mx-3 my-3 py-3 px-3  shadow border">
+    <a href="{% url 'course:manage:manage_group_detail' group.slug %}">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            {{ group.title }}
+        </h3>
+    </a>
+
+    <p>kurs vaqti: {{ group.time }}</p>
+    <div class="mt-2 d-flex justify-content-evenly">
+        {#        {% if not group.modules.last %}#}
+        <button hx-put="{% url 'course:manage:update_group' course.id group.slug %}" hx-swap="outerHTML"
+                class="btn btn-outline-warning" data-bs-toggle="tooltip" data-bs-placement="top" title="Tahrirlash">
+            <span class="fas fa-edit fs-5" title="tahrirlash"></span>update
+
+        </button>
+
+        <button hx-delete="{% url  'course:manage:delete_group' course.id group.slug %}"
+                hx-confirm="{{ group }}ni haqiqatdan ham o'chirmoqchimisiz " hx-swap="outerHTML swap:1s"
+                class="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="O'chirish">
+            <span class="fas fa-trash fs-5" title="o'chirish"></span>delete
+        </button>
+        {#        {% endif %}#}
+
+    </div>
+
+</div>
+

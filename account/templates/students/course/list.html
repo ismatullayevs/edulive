@@ -1,0 +1,646 @@
+{% extends 'courses/home/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block title %}
+    kurslar ro'yxati
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'courses/home/css/course-list.css' %}">
+{% endblock css %}
+
+
+{% block header %}
+    <style>
+        .tabcontent {
+            border: none;
+        }
+    </style>
+
+    {% include 'courses/home/_header.html' %}
+
+    <section class="home">
+        {% comment %} course info  {% endcomment %}
+        <div class="home-slider">
+
+            <section class='my_courses'>
+                <h1 align='center' class='pt-5' style='font-size:4rem;forn-weight:800;'>Mening Kurslarim</h1>
+                <div class="courses_menu">
+                    <ul>
+                        <li onclick="openCity(event, 'Course')">Hamma kursalar</li>
+                        <li onclick="openCity(event, 'Plan_course')">Tugallanmagan kurslar</li>
+                        <li onclick="openCity(event, 'Sertificate')">Tugallanmagan kurslar</li>
+                    </ul>
+                </div>
+            </section>
+
+
+        </div>
+        {% comment %} end course info  {% endcomment %}
+        <!-- Button trigger modal -->
+
+
+        </div>
+    </section>
+
+    {% block main %}
+        {% comment %} cource content block  {% endcomment %}
+        <section>
+            <div id="Course" class="tabcontent p-5 fn-size" style='display:block;'>
+                <div class="wrapper_courses">
+                    <div class="group-course-card">
+
+
+                        {% comment %} {% for group in object_list %}
+                        {% with group.course as course %}
+                            <div class="product-box pb-4">
+                                <a href="{% url 'student_course_detail' group.slug course.slug %}">
+                                    {% if course.img %}
+                                        <img alt="" src="{{ course.img.url }}"/>
+                                    {% else %}
+                                        <img alt="" src="{% static 'courses/home/images/background/white-curved.jpeg' %}"/>
+
+                                    {% endif %}
+
+                                    <strong>{{ course.title|truncatechars:'40' }}</strong>
+                                    <div class='desc' color="#6e6e73">
+                                        Mentor:{{course.owner.get_full_name}}
+                                        <br>
+                                        Kurs Vaqti:{{group.time}}
+                                    </div>
+                                </a>
+                            </div>
+                        {% endwith %}
+
+
+                        {% endfor %} {% endcomment %}
+
+
+
+                        {% for group in object_list %}
+                            {% with group.course as course %}
+                                <div class="product-box pb-4">
+                                    <a href="{% url 'student_course_detail' group.slug course.slug %}">
+                                        {% if course.img %}
+                                            <img alt="" src="{{ course.img.url }}"/>
+                                        {% else %}
+                                            <img alt=""
+                                                 src="{% static 'courses/home/images/background/white-curved.jpeg' %}"/>
+
+                                        {% endif %}
+
+                                        <strong>{{ course.title|truncatechars:'40' }}</strong>
+                                        <div class='desc' color="#6e6e73">
+                                            Mentor:{{ course.owner.get_full_name }}
+                                            <br>
+                                            Kurs Vaqti:{{ group.time }}
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endwith %}
+
+
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="Mentor" class="tabcontent">
+                <h3>{{ course.owner.get_full_name }}</h3>
+                <p>Senior developer</p>
+            </div>
+
+            <div id="Sertificate" class="tabcontent">
+                <h3>Sertificate</h3>
+                <p>lorem100</p>
+            </div>
+
+            <div id="Plan_course" class="tabcontent p-5">
+                <h1>{{ course.title }}</h1>
+                <div class="accordion" id="accordionExample">
+                    {% with course.modules.all as modules %}
+                        {% for modul in modules %}
+                            <div class="accordion-item m-3">
+                                <h2 class="accordion-header" id="heading{{ modul.order }}">
+                                    <button class="accordion-button" style="font-size:2rem;" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ modul.order }}"
+                                            aria-expanded="true" aria-controls="collapse{{ modul.order }}">
+                                        {{ modul.title }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ modul.order }}" class="accordion-collapse collapse"
+                                     aria-labelledby="heading{{ modul.order }}"
+                                     data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <p>{{ modul.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+
+            </div>
+
+        </section>
+        {% comment %} end cource content block  {% endcomment %}
+        <section class="">
+
+        </section>
+
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'courses/home/_footer.html' %}
+    <section>
+        <div class="col-xxl-8">
+            <div class="card shadow p-2">
+                <div class="row g-0">
+                    <div class="col-lg-5">
+                        <img src="{% static 'courses/home/images/background/curved1.jpg' %}" width="100%"
+                             class="img-fluid rounded-2" alt="Card image">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card-body">
+                            <!-- Badge and rating -->
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <!-- Badge -->
+                                <a href="#" class="badge bg-primary text-white mb-2 mb-sm-0">Marketing</a>
+                                <!-- Rating and wishlist -->
+                                <div>
+                                    <span class="text-dark me-3"><i class="fas fa-star text-warning me-1"></i>4.5</span>
+                                    <a href="#" class="text-dark"><i class="far fa-heart"></i></a>
+                                </div>
+                            </div>
+
+                            <!-- Title -->
+                            <h5 class="card-title"><a href="#">The Complete Digital Marketing Course - 12 Courses in
+                                1</a>
+                            </h5>
+                            <p class="text-truncate">Explained propriety off out perpetual his you. Dependent contented
+                                he
+                                explained propriety off out perpetual his you. </p>
+
+                            <!-- Info -->
+                            <ul class="list-inline">
+                                <li class="list-inline-item text-dark mb-1 mb-sm-0"><i
+                                        class="far fa-clock text-danger me-2"></i>6h 56m
+                                </li>
+                                <li class="list-inline-item text-dark mb-1 mb-sm-0"><i
+                                        class="fas fa-table text-orange me-2"></i>82 lectures
+                                </li>
+                                <li class="list-inline-item text-dark"><i class="fas fa-signal text-success me-2"></i>Beginner
+                                </li>
+                            </ul>
+                            <style>
+                                .avatar {
+                                    height: 3rem;
+                                    width: 3rem;
+                                    position: relative;
+                                    display: inline-block !important;
+                                }
+
+                                .avatar-img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: fill;
+                                }
+                            </style>
+                            <!-- Price and avatar -->
+                            <div class="d-sm-flex justify-content-sm-between align-items-center">
+                                <!-- Avatar -->
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar">
+                                        <img class="avatar-img rounded-circle"
+                                             src="{% static 'courses/home/images/background/curved1.jpg' %}"
+                                             alt="avatar">
+                                    </div>
+                                    <p class="mb-0 ms-2"><a href="#" class="text-dark">Larry Lawson</a></p>
+                                </div>
+                                <!-- Price -->
+                                <div class="mt-3 mt-sm-0">
+                                    <a href="#" class="btn btn-dark">View more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            k
+        </div>
+    </section>
+    <section class="pt-0">
+        <div class="container">
+            <div class="row">
+
+                <!-- Left sidebar START -->
+                <div class="col-xl-3">
+                    <!-- Responsive offcanvas body START -->
+                    <nav class="navbar navbar-light navbar-expand-xl mx-0">
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                             aria-labelledby="offcanvasNavbarLabel">
+                            <!-- Offcanvas header -->
+                            <div class="offcanvas-header bg-light">
+                                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">My profile</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                            </div>
+                            <!-- Offcanvas body -->
+                            <div class="offcanvas-body p-3 p-xl-0">
+                                <div class="bg-dark border rounded-3 pb-0 p-3 w-100">
+                                    <!-- Dashboard menu -->
+                                    <div class="list-group list-group-dark list-group-borderless">
+                                        <a class="list-group-item" href="student-dashboard.html"><i
+                                                class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a>
+                                        <a class="list-group-item" href="student-subscription.html"><i
+                                                class="bi bi-card-checklist fa-fw me-2"></i>My Subscriptions</a>
+                                        <a class="list-group-item active" href="student-course-list.html"><i
+                                                class="bi bi-basket fa-fw me-2"></i>My Courses</a>
+                                        <a class="list-group-item" href="student-course-resume.html"><i
+                                                class="far fa-fw fa-file-alt me-2"></i>Course Resume</a>
+                                        <a class="list-group-item" href="student-quiz.html"><i
+                                                class="bi bi-question-diamond fa-fw me-2"></i>Quiz</a>
+                                        <a class="list-group-item" href="student-payment-info.html"><i
+                                                class="bi bi-credit-card-2-front fa-fw me-2"></i>Payment info</a>
+                                        <a class="list-group-item" href="student-bookmark.html"><i
+                                                class="bi bi-cart-check fa-fw me-2"></i>Wishlist</a>
+                                        <a class="list-group-item" href="instructor-edit-profile.html"><i
+                                                class="bi bi-pencil-square fa-fw me-2"></i>Edit Profile</a>
+                                        <a class="list-group-item" href="instructor-setting.html"><i
+                                                class="bi bi-gear fa-fw me-2"></i>Settings</a>
+                                        <a class="list-group-item" href="instructor-delete-account.html"><i
+                                                class="bi bi-trash fa-fw me-2"></i>Delete Profile</a>
+                                        <a class="list-group-item text-danger bg-danger-soft-hover" href="#"><i
+                                                class="fas fa-sign-out-alt fa-fw me-2"></i>Sign Out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- Responsive offcanvas body END -->
+                </div>
+                <!-- Left sidebar END -->
+
+                <!-- Main content START -->
+                <div class="col-xl-9">
+                    <div class="card bg-transparent border rounded-3">
+                        <!-- Card header START -->
+                        <div class="card-header bg-transparent border-bottom">
+                            <h3 class="mb-0">My Courses List</h3>
+                        </div>
+                        <!-- Card header END -->
+
+                        <!-- Card body START -->
+                        <div class="card-body">
+
+                            <!-- Search and select START -->
+                            <div class="row g-3 align-items-center justify-content-between mb-4">
+                                <!-- Content -->
+                                <div class="col-md-8">
+                                    <form class="rounded position-relative">
+                                        <input class="form-control pe-5 bg-transparent" type="search"
+                                               placeholder="Search" aria-label="Search">
+                                        <button class="btn bg-transparent px-2 py-0 position-absolute top-50 end-0 translate-middle-y"
+                                                type="submit"><i class="fas fa-search fs-6 "></i></button>
+                                    </form>
+                                </div>
+
+                                <!-- Select option -->
+                                <div class="col-md-3">
+                                    <!-- Short by filter -->
+                                    <form>
+                                        <div class="choices" data-type="select-one" tabindex="0" role="combobox"
+                                             aria-autocomplete="list" aria-haspopup="true" aria-expanded="false">
+                                            <div class="choices__inner"><select
+                                                    class="form-select js-choice border-0 z-index-9 bg-transparent choices__input"
+                                                    aria-label=".form-select-sm" hidden="" tabindex="-1"
+                                                    data-choice="active">
+                                                <option value="" data-custom-properties="[object Object]">Sort by
+                                                </option>
+                                            </select>
+                                                <div class="choices__list choices__list--single">
+                                                    <div class="choices__item choices__placeholder choices__item--selectable"
+                                                         data-item="" data-id="1" data-value=""
+                                                         data-custom-properties="[object Object]" aria-selected="true">
+                                                        Sort by
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="choices__list choices__list--dropdown" aria-expanded="false">
+                                                <input type="text" class="choices__input choices__input--cloned"
+                                                       autocomplete="off" autocapitalize="off" spellcheck="false"
+                                                       role="textbox" aria-autocomplete="list" aria-label="Sort by"
+                                                       placeholder="">
+                                                <div class="choices__list" role="listbox">
+                                                    <div id="choices--cdmj-item-choice-5"
+                                                         class="choices__item choices__item--choice is-selected choices__placeholder choices__item--selectable is-highlighted"
+                                                         role="option" data-choice="" data-id="5" data-value=""
+                                                         data-select-text="Press to select" data-choice-selectable=""
+                                                         aria-selected="true">Sort by
+                                                    </div>
+                                                    <div id="choices--cdmj-item-choice-1"
+                                                         class="choices__item choices__item--choice choices__item--selectable"
+                                                         role="option" data-choice="" data-id="1" data-value="Free"
+                                                         data-select-text="Press to select" data-choice-selectable="">
+                                                        Free
+                                                    </div>
+                                                    <div id="choices--cdmj-item-choice-2"
+                                                         class="choices__item choices__item--choice choices__item--selectable"
+                                                         role="option" data-choice="" data-id="2"
+                                                         data-value="Most popular" data-select-text="Press to select"
+                                                         data-choice-selectable="">Most popular
+                                                    </div>
+                                                    <div id="choices--cdmj-item-choice-3"
+                                                         class="choices__item choices__item--choice choices__item--selectable"
+                                                         role="option" data-choice="" data-id="3"
+                                                         data-value="Most Viewed" data-select-text="Press to select"
+                                                         data-choice-selectable="">Most Viewed
+                                                    </div>
+                                                    <div id="choices--cdmj-item-choice-4"
+                                                         class="choices__item choices__item--choice choices__item--selectable"
+                                                         role="option" data-choice="" data-id="4" data-value="Newest"
+                                                         data-select-text="Press to select" data-choice-selectable="">
+                                                        Newest
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- Search and select END -->
+
+                            <!-- Course list table START -->
+                            <div class="table-responsive border-0">
+                                <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
+                                    <!-- Table head -->
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" class="border-0 rounded-start">Course Title</th>
+                                        <th scope="col" class="border-0">Total Lectures</th>
+                                        <th scope="col" class="border-0">Completed Lecture</th>
+                                        <th scope="col" class="border-0 rounded-end">Action</th>
+                                    </tr>
+                                    </thead>
+
+                                    <!-- Table body START -->
+                                    <tbody>
+                                    <!-- Table item -->
+                                    <tr>
+                                        <!-- Table data -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!-- Image -->
+                                                <div class="w-100px">
+                                                    <img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
+                                                </div>
+                                                <div class="mb-0 ms-2">
+                                                    <!-- Title -->
+                                                    <h6 class="table-responsive-title"><a href="#">Building Scalable
+                                                        APIs with GraphQL</a></h6>
+                                                    <!-- Info -->
+                                                    <div class="overflow-hidden">
+                                                        <h6 class="mb-0 text-end">85%</h6>
+                                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                            <div class="progress-bar bg-primary aos aos-init aos-animate"
+                                                                 role="progressbar" data-aos="slide-right"
+                                                                 data-aos-delay="200" data-aos-duration="1000"
+                                                                 data-aos-easing="ease-in-out" style="width: 85%"
+                                                                 aria-valuenow="85" aria-valuemin="0"
+                                                                 aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Table data -->
+                                        <td>56</td>
+
+                                        <!-- Table data -->
+                                        <td>40</td>
+
+                                        <!-- Table data -->
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
+                                                    class="bi bi-play-circle me-1"></i>Continue</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table item -->
+                                    <tr>
+                                        <!-- Table data -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!-- Image -->
+                                                <div class="w-100px">
+                                                    <img src="assets/images/courses/4by3/03.jpg" class="rounded" alt="">
+                                                </div>
+                                                <div class="mb-0 ms-2">
+                                                    <!-- Title -->
+                                                    <h6 class="table-responsive-title"><a href="#">Create a Design
+                                                        System in Figma</a></h6>
+                                                    <!-- Info -->
+                                                    <div class="overflow-hidden">
+                                                        <h6 class="mb-0 text-end">100%</h6>
+                                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                            <div class="progress-bar bg-primary aos aos-init aos-animate"
+                                                                 role="progressbar" data-aos="slide-right"
+                                                                 data-aos-delay="200" data-aos-duration="1000"
+                                                                 data-aos-easing="ease-in-out" style="width: 100%"
+                                                                 aria-valuenow="100" aria-valuemin="0"
+                                                                 aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Table data -->
+                                        <td>42</td>
+
+                                        <!-- Table data -->
+                                        <td>42</td>
+
+                                        <!-- Table data -->
+                                        <td>
+                                            <button class="btn btn-sm btn-success me-1 mb-1 mb-x;-0 disabled"><i
+                                                    class="bi bi-check me-1"></i>Complete
+                                            </button>
+                                            <a href="#" class="btn btn-sm btn-light me-1"><i
+                                                    class="bi bi-arrow-repeat me-1"></i>Restart</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table item -->
+                                    <tr>
+                                        <!-- Table data -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!-- Image -->
+                                                <div class="w-100px">
+                                                    <img src="assets/images/courses/4by3/05.jpg" class="rounded" alt="">
+                                                </div>
+                                                <div class="mb-0 ms-2">
+                                                    <!-- Title -->
+                                                    <h6 class="table-responsive-title"><a href="#">The Complete Web
+                                                        Development in python</a></h6>
+                                                    <!-- Info -->
+                                                    <div class="overflow-hidden">
+                                                        <h6 class="mb-0 text-end">60%</h6>
+                                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                            <div class="progress-bar bg-primary aos aos-init aos-animate"
+                                                                 role="progressbar" data-aos="slide-right"
+                                                                 data-aos-delay="200" data-aos-duration="1000"
+                                                                 data-aos-easing="ease-in-out" style="width: 60%"
+                                                                 aria-valuenow="60" aria-valuemin="0"
+                                                                 aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- Table data -->
+                                        <td>28</td>
+
+                                        <!-- Table data -->
+                                        <td>12</td>
+
+                                        <!-- Table data -->
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
+                                                    class="bi bi-play-circle me-1"></i>Continue</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table item -->
+                                    <tr>
+                                        <!-- Table data -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!-- Image -->
+                                                <div class="w-100px">
+                                                    <img src="assets/images/courses/4by3/01.jpg" class="rounded" alt="">
+                                                </div>
+                                                <div class="mb-0 ms-2">
+                                                    <!-- Title -->
+                                                    <h6 class="table-responsive-title"><a href="#">Digital Marketing
+                                                        Masterclass</a></h6>
+                                                    <!-- Info -->
+                                                    <div class="overflow-hidden">
+                                                        <h6 class="mb-0 text-end">40%</h6>
+                                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                            <div class="progress-bar bg-primary aos aos-init aos-animate"
+                                                                 role="progressbar" data-aos="slide-right"
+                                                                 data-aos-delay="200" data-aos-duration="1000"
+                                                                 data-aos-easing="ease-in-out" style="width: 40%"
+                                                                 aria-valuenow="40" aria-valuemin="0"
+                                                                 aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- Table data -->
+                                        <td>32</td>
+
+                                        <!-- Table data -->
+                                        <td>18</td>
+
+                                        <!-- Table data -->
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
+                                                    class="bi bi-play-circle me-1"></i>Continue</a>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Table item -->
+                                    <tr>
+                                        <!-- Table data -->
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <!-- Image -->
+                                                <div class="w-100px">
+                                                    <img src="assets/images/courses/4by3/02.jpg" class="rounded" alt="">
+                                                </div>
+                                                <div class="mb-0 ms-2">
+                                                    <!-- Title -->
+                                                    <h6 class="table-responsive-title"><a href="#">Graphic Design
+                                                        Masterclass</a></h6>
+                                                    <!-- Info -->
+                                                    <div class="overflow-hidden">
+                                                        <h6 class="mb-0 text-end">90%</h6>
+                                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                            <div class="progress-bar bg-primary aos aos-init"
+                                                                 role="progressbar" data-aos="slide-right"
+                                                                 data-aos-delay="200" data-aos-duration="1000"
+                                                                 data-aos-easing="ease-in-out" style="width: 90%"
+                                                                 aria-valuenow="90" aria-valuemin="0"
+                                                                 aria-valuemax="100">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- Table data -->
+                                        <td>16</td>
+
+                                        <!-- Table data -->
+                                        <td>14</td>
+
+                                        <!-- Table data -->
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0"><i
+                                                    class="bi bi-play-circle me-1"></i>Continue</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <!-- Table body END -->
+                                </table>
+                            </div>
+                            <!-- Course list table END -->
+
+                            <!-- Pagination START -->
+                            <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                                <!-- Content -->
+                                <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
+                                <!-- Pagination -->
+                                <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
+                                    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i
+                                                class="fas fa-angle-left"></i></a></li>
+                                        <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item mb-0"><a class="page-link" href="#"><i
+                                                class="fas fa-angle-right"></i></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- Pagination END -->
+                        </div>
+                        <!-- Card body START -->
+                    </div>
+                </div>
+                <!-- Main content END -->
+            </div> <!-- Row END -->
+        </div>
+    </section>
+
+{% endblock %}
+
+
+

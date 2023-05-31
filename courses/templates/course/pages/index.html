@@ -1,0 +1,633 @@
+{% extends 'course/base.html' %}
+{% load static %}
+{% block title %}Bosh sahifa{% endblock title %}
+
+{% block header %}
+    {% include 'course/include/_header.html' %}
+    {% include 'course/include/_hero.html' %}
+{% endblock header %}
+
+{% block content %}
+
+
+    <main id="main">
+
+        <!-- ======= Clients Section ======= -->
+        <section id="clients" class="clients">
+            <div class="container" data-aos="zoom-in">
+
+                <div class="clients-slider  swiper">
+                    <div class="swiper-wrapper align-items-center">
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-1.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-2.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-3.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-4.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-5.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-6.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-7.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                        <div class="swiper-slide"><img src="{% static 'courses/images/clients/client-8.png' %}"
+                                                       class="img-fluid" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Clients Section -->
+
+
+        <!-- ======= Popular Courses Section ======= -->
+        <section id="popular-courses" class="courses">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Courses</h2>
+                    <p>Popular Courses</p>
+                </div>
+
+                <div class="popular-swiper swiper " data-aos="zoom-in" data-aos-delay="100">
+                    <div class="swiper-wrapper gap-3">
+
+                        <div class="swiper-slide">
+                            <div class="course-item">
+                                <img src="{% static 'courses/images/course-2-8.jpg' %}" class="img-fluid" alt="...">
+                                <div class="course-content border p-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4>Web Development</h4>
+                                        <p class="price">1 500 000 ming so'm</p>
+                                    </div>
+
+                                    <h3><a href="course-details.html">Backend(python)</a></h3>
+                                    <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae
+                                        dolores dolorem tempore.</p>
+                                    <div class="trainer d-flex justify-content-between align-items-center">
+                                        <div class="trainer-profile d-flex align-items-center">
+                                            <img with="50" src="{% static 'courses/images/pic-1.png' %}"
+                                                 class="img-fluid" alt="">
+                                            <span>Narziyev Orzu</span>
+                                        </div>
+                                        <div class="trainer-rank d-flex align-items-center">
+                                            <i class="bx bx-user"></i>&nbsp;50
+                                            &nbsp;&nbsp;
+                                            <i class="bx bx-heart"></i>&nbsp;65
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End Course Item-->
+
+                        <div class="swiper-slide">
+                            <div class="course-item">
+                                <img src="{% static 'courses/images/course-2-8.jpg' %}" class="img-fluid" alt="...">
+                                <div class="course-content border p-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4>Web Development</h4>
+                                        <p class="price">1 500 000 ming so'm</p>
+                                    </div>
+
+                                    <h3><a href="course-details.html">Frontend(html css js)</a></h3>
+                                    <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae
+                                        dolores dolorem tempore.</p>
+                                    <div class="trainer d-flex justify-content-between align-items-center">
+                                        <div class="trainer-profile d-flex align-items-center">
+                                            <img with="50" height="50" src="{% static 'courses/images/pic-1.png' %}"
+                                                 class="img-fluid" alt="">
+                                            <span>Mirshod Giyasov</span>
+                                        </div>
+                                        <div class="trainer-rank d-flex align-items-center">
+                                            <i class="bx bx-user"></i>&nbsp;50
+                                            &nbsp;&nbsp;
+                                            <i class="bx bx-heart"></i>&nbsp;65
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End Course Item-->
+
+                        <div class="swiper-slide">
+                            <div class="course-item">
+                                <img src="{% static 'courses/images/course-2-8.jpg' %}" class="img-fluid" alt="...">
+                                <div class="course-content border p-3">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4>Web Development</h4>
+                                        <p class="price">1 500 000 ming so'm</p>
+                                    </div>
+
+                                    <h3><a href="course-details.html">Website Design</a></h3>
+                                    <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae
+                                        dolores dolorem tempore.</p>
+                                    <div class="trainer d-flex justify-content-between align-items-center">
+                                        <div class="trainer-profile d-flex align-items-center">
+                                            <img with="50" src="{% static 'courses/images/pic-1.png' %}"
+                                                 class="img-fluid" alt="">
+                                            <span>Narziyev Orzu</span>
+                                        </div>
+                                        <div class="trainer-rank d-flex align-items-center">
+                                            <i class="bx bx-user"></i>&nbsp;50
+                                            &nbsp;&nbsp;
+                                            <i class="bx bx-heart"></i>&nbsp;65
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- End Course Item-->
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Popular Courses Section -->
+
+
+        <!-- ======= Counts Section ======= -->
+        <section id="counts" class="counts section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="count-box">
+                            <i class="bi bi-people-fill"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
+                                  class="purecounter"></span>
+                            <p>O'quvchilar</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                        <div class="count-box">
+                            <i class="bi bi-journal-bookmark"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
+                                  class="purecounter"></span>
+                            <p>Kurslar</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="bi bi-person-check-fill"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
+                                  class="purecounter"></span>
+                            <p>Bitiruvchilar</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                        <div class="count-box">
+                            <i class="bi bi-person-rolodex"></i>
+                            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                                  class="purecounter"></span>
+                            <p>O'qituchilar</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Counts Section -->
+
+
+        <!-- ======= Subjects Section ======= -->
+        <section id="services" class="services section-bg ">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Ommabop yo'nalishlar</h2>
+                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
+                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
+                        ea.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+                            <i class="bi bi-briefcase"></i>
+                            <h4><a href="#"> Treyding </a></h4>
+                            <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint
+                                occaecati cupiditate non provident</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+                            <i class="bi bi-globe"></i>
+                            <h4><a href="#">Web Dasturlash</a></h4>
+                            <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat tarad limino ata</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+                            <i class="bi bi-robot"></i>
+                            <h4><a href="#">Robotatexnika</a></h4>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla pariatur</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+                            <i class="bi bi-briefcase"></i>
+                            <h4><a href="#">Business</a></h4>
+                            <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                                anim id est laborum</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="500">
+                            <i class="bi bi-gear"></i>
+                            <h4><a href="#">3D modellashtirish</a></h4>
+                            <p>autocad,3max,</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-4 mt-md-0">
+                        <div class="icon-box" data-aos="fade-up" data-aos-delay="600">
+                            <i class="bi bi-calculator-fill"></i>
+                            <h4><a href="#">SMM</a></h4>
+                            <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta
+                                nobis est eligendi</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Subjects Section -->
+
+        <!-- ======= Testimonials Section ======= -->
+        <section id="testimonials" class="testimonials">
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Bizga berilgan fikrlar</h2>
+                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
+                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
+                        ea.</p>
+                </div>
+
+                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="{% static 'courses/images/pic-1.png' %}" class="testimonial-img" alt="">
+                                    <h3>Saul Goodman</h3>
+                                    <h4>Ceo &amp; Founder</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        Proin iaculis purus consequat sem cure digni ssim donec porttitora entum
+                                        suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et.
+                                        Maecen aliquam, risus at semper.
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="{% static 'courses/images/pic-1.png' %}" class="testimonial-img" alt="">
+                                    <h3>Sara Wilsson</h3>
+                                    <h4>Designer</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        Export tempor illum tamen malis malis eram quae irure esse labore quem cillum
+                                        quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat
+                                        irure amet legam anim culpa.
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="{% static 'courses/images/pic-1.png' %}" class="testimonial-img" alt="">
+                                    <h3>Jena Karlis</h3>
+                                    <h4>Store Owner</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem
+                                        veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis
+                                        sint minim.
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="{% static 'courses/images/pic-1.png' %}" class="testimonial-img" alt="">
+                                    <h3>Matt Brandon</h3>
+                                    <h4>Freelancer</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim
+                                        fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore
+                                        quem dolore labore illum veniam.
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <img src="{% static 'courses/images/pic-1.png' %}" class="testimonial-img" alt="">
+                                    <h3>John Larson</h3>
+                                    <h4>Entrepreneur</h4>
+                                    <p>
+                                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                        Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor
+                                        noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat esse
+                                        veniam culpa fore nisi cillum quid.
+                                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+        </section><!-- End Testimonials Section -->
+
+
+        <!-- ======= Frequently Asked Questions Section ======= -->
+        <section id="faq" class="faq">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Ko'p beriladigan savollar</h2>
+                </div>
+
+                <ul class="faq-list accordion" data-aos="fade-up">
+
+                    <li>
+                        <a data-bs-toggle="collapse" class="collapsed" data-bs-target="#faq1">Non consectetur a erat nam
+                            at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i
+                                    class="bx bx-x icon-close"></i></a>
+                        <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non
+                                curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus
+                                non.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-bs-toggle="collapse" data-bs-target="#faq2" class="collapsed">Feugiat scelerisque varius
+                            morbi enim nunc faucibus a pellentesque? <i class="bx bx-chevron-down icon-show"></i><i
+                                    class="bx bx-x icon-close"></i></a>
+                        <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum
+                                velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec
+                                pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus
+                                turpis massa tincidunt dui.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-bs-toggle="collapse" data-bs-target="#faq3" class="collapsed">Dolor sit amet consectetur
+                            adipiscing elit pellentesque habitant morbi? <i class="bx bx-chevron-down icon-show"></i><i
+                                    class="bx bx-x icon-close"></i></a>
+                        <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus
+                                pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum
+                                tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna
+                                molestie at elementum eu facilisis sed odio morbi quis
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-bs-toggle="collapse" data-bs-target="#faq4" class="collapsed">Ac odio tempor orci
+                            dapibus. Aliquam eleifend mi in nulla? <i class="bx bx-chevron-down icon-show"></i><i
+                                    class="bx bx-x icon-close"></i></a>
+                        <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum
+                                velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec
+                                pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus
+                                turpis massa tincidunt dui.
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-bs-toggle="collapse" data-bs-target="#faq5" class="collapsed">Tempus quam pellentesque
+                            nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i
+                                    class="bx bx-x icon-close"></i></a>
+                        <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est
+                                ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit
+                                adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                            </p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a data-bs-toggle="collapse" data-bs-target="#faq6" class="collapsed">Tortor vitae purus
+                            faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i
+                                    class="bx bx-chevron-down icon-show"></i><i class="bx bx-x icon-close"></i></a>
+                        <div id="faq6" class="collapse" data-bs-parent=".faq-list">
+                            <p>
+                                Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo
+                                integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc
+                                eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                                Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus.
+                                Nibh tellus molestie nunc non blandit massa enim nec.
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </section><!-- End Frequently Asked Questions Section -->
+
+        <!-- ======= Team Section ======= -->
+        <section id="team" class="team section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Jamoa</h2>
+                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
+                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
+                        ea.</p>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="100">
+                            <div class="member-img">
+                                <img src="{% static 'courses/images/course-2-3.jpg' %}" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Walter White</h4>
+                                <span>Chief Executive Officer</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="200">
+                            <div class="member-img">
+                                <img src="{% static 'courses/images/course-2-3.jpg' %}" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Sarah Jhonson</h4>
+                                <span>Product Manager</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="300">
+                            <div class="member-img">
+                                <img src="{% static 'courses/images/course-2-3.jpg' %}" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>William Anderson</h4>
+                                <span>CTO</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="member" data-aos="fade-up" data-aos-delay="400">
+                            <div class="member-img">
+                                <img src="{% static 'courses/images/course-2-3.jpg' %}" class="img-fluid" alt="">
+                                <div class="social">
+                                    <a href=""><i class="bi bi-twitter"></i></a>
+                                    <a href=""><i class="bi bi-facebook"></i></a>
+                                    <a href=""><i class="bi bi-instagram"></i></a>
+                                    <a href=""><i class="bi bi-linkedin"></i></a>
+                                </div>
+                            </div>
+                            <div class="member-info">
+                                <h4>Amanda Jepson</h4>
+                                <span>Accountant</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Team Section -->
+
+        <!-- ======= Contact Section ======= -->
+        <section id="contact" class="contact">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Contact</h2>
+                    <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit
+                        sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias
+                        ea.</p>
+                </div>
+
+                <div class="row" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="col-lg-6">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="info-box">
+                                    <i class="bx bx-map"></i>
+                                    <h3>Manzil</h3>
+                                    <p>1706258501 - Buxoro viloyati, Shofirkon tumani, Shofirkon shahri</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box mt-4">
+                                    <i class="bx bx-envelope"></i>
+                                    <h3>Email</h3>
+                                    <p>stableeducation@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box mt-4">
+                                    <i class="bx bx-phone-call"></i>
+                                    <h3>Telefon</h3>
+                                    <p>+9989 99 700 99 44</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6">
+                        <form action="" method="post" class="php-email-form">
+                            <div class="row">
+                                <div class="col form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Ismingiz"
+                                           required>
+                                </div>
+                                <div class="col form-group">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                           placeholder="Email adress" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Mavzu"
+                                       required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="5" placeholder="Xabar"
+                                          required></textarea>
+                            </div>
+                            <div class="my-3">
+                                <div class="loading">Loading</div>
+                                <div class="error-message"></div>
+                                <div class="sent-message">Your message has been sent. Thank you!</div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit">Sms yuborish</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+    </main><!-- End #main -->
+
+
+{% endblock content %}
+
+{% block footer %}
+    {% include 'course/include/_footer.html' %}
+{% endblock footer %}

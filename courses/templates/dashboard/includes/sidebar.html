@@ -1,0 +1,50 @@
+{% load static %}
+{% url 'course:manage:dashboard' as dashboard %}
+{% url 'course:manage:manage_course_list' as courses %}
+{% url 'manage_group_list' as groups %}
+{% url 'quiz:quiz_list' as quiz_list %}
+{% url 'teacher_edit' request.user.pk as teacher_edit %}
+{#{% url '' as Students %}#}
+{#{% url '' as add_quiz %}#}
+{#{% url '' as notice %}#}
+<div class="sidebar">
+    <a href="{% url 'course:homepage' %}" style="text-decoration: none;">
+        <div class="sidebar-brand" style="display:flex; align-items:center;">
+            <img width='70' src="{% static 'courses/images/logo-stable.png' %}" alt="">
+            <div class="text__stable" style='display:flex;flex-direction:column; margin-left:10px;'>
+                <span>Stable</span>
+                <span>Education</span>
+            </div>
+            {% comment %} <h2><span class="fab fa-accusoft"></span><span>Stable Education </span></h2> {% endcomment %}
+        </div>
+    </a>
+    <div class="sidebar-menu">
+        <ul>
+            <li><a class="{% if request.path == dashboard %} active{% endif %}"
+                   href="{{ dashboard }}"><span
+                    class="fas fa-igloo"></span><span>Boshqaruv paneli</span></a></li>
+            <li><a class="{% if request.path == courses %} active {% endif %}"
+                   href="{% url 'course:manage:manage_course_list' %}"><span
+                    class=" fas fa-clipboard-list"></span><span>Kusrlar</span></a>
+            <li><a class="{% if request.path == groups %} active {% endif %} "
+                   href="{% url 'course:manage:manage_group_list' %}"><span
+                    class="fas fa-users"></span><span>Guruhlar</span></a></li>
+            </li>
+            {#            <li><a href=""><span class="fas fa-shipping-fast"></span><span>Students</span></a>#}
+            </li>
+            <li><a class="{% if request.path == quiz_list %} active{% endif %}" href="{{ quiz_list }}"><span
+                    class="fas fa-receipt"></span><span>Test Bo'limi</span></a></li>
+            {#            <li><a href=""><span class="fas fa-clipboard-list"></span><span>E`lonlar</span></a></li>#}
+        </ul>
+    </div>
+    <div class="stdudent-settings position-absolute bottom-0 h5">
+        <ul>
+            <li class="p-2"><a class="text-decoration-none p-3" style="color: white;"
+                               href="{% url 'account:teacher_edit' %}"><span
+                    class="fas fa-wrench"></span><span class="m-2">Profilni tahrirlash</span></a></li>
+            <li class="p-2"><a class="text-decoration-none p-3" style="color: white;"
+                               href="{% url 'account:log_out' %}"><span
+                    class="fas fa-arrow-circle-left"></span><span class="m-2">Chiqish</span></a></li>
+        </ul>
+    </div>
+</div>

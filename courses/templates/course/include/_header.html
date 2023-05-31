@@ -1,0 +1,122 @@
+{% load static %}
+{% load account %}
+{% url 'course:homepage' as home %}
+{% url 'course:course_list' as course_list %}
+{% url 'news:news' as news %}
+{% comment %} {% profil request.user as std %} {% endcomment %}
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center justify-content-speace-between">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <h1 class="logo me-auto"><a href="{% url 'course:homepage' %}" class="logo"><img
+                src="{% static 'courses/images/document.png' %}" alt=""></a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt=""></a>-->
+
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto {% if request.path == home %}active {% endif %}"
+                       href="{% url 'course:homepage' %}">Bosh sahifa</a></li>
+                <li><a class="nav-link scrollto {% if request.path == course_list %}active {% endif %}"
+                       href="{{ course_list }}">Kurslar</a></li>
+                <li><a class="nav-link scrollto {% if request.path == news %}active {% endif %}"
+                       href="{{ news }}">Yangiliklar</a></li>
+
+                {#          <li><a class="nav-link scrollto" {% if not home%} href="{% url 'course:homepage' %}" {% else %} href="#about"{% endif %}  >About</a></li>#}
+
+                <li><a class="nav-link scrollto" {% if request.path != home %}
+                       href="{% url 'course:homepage' %}#services" {% else %}
+                       href="#services"{% endif %}>Yo'nalishlar</a></li>
+                <li><a class="nav-link scrollto" {% if request.path != home %}
+                       href="{% url 'course:homepage' %}#team" {% else %} href="#team"{% endif %}>Team</a></li>
+                <li><a class="nav-link scrollto" {% if request.path != home %}
+                       href="{% url 'course:homepage' %}#contact" {% else %} href="#contact"{% endif %}>Contact</a></li>
+            </ul>
+
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+
+            {% if request.user.is_authenticated %}
+                <button data-account class="account btn bi bi-person-circle">
+                </button>
+                <small class="users-name">{{ request.user|capfirst }}</small>
+            {% else %}
+                <a href="{% url 'account:log_in' %}">
+                    <button style='font-size:1.4rem;' class=" btn bi-box-arrow-right"><span style='font-weight:bold'> Kirish</span>
+                    </button>
+                </a>
+
+            {% endif %}
+
+
+            <!--account profile -->
+
+
+            {% comment %} modalniy okno {% endcomment %}
+            <!--account profile -->
+            <div class="account-profile hidden" data-aos="zoom-in">
+                <div id="close-form" data-close style='font-weight:900;' class="text-start bold bi bi-x-lg"></div>
+                <div class="wrapper_user_info d-flex flex-column justify-content-center">
+
+                    {% with std.user.last_name|length  as last %}
+                        {% with len|add:-1 as first %}
+                            {% if std.avatar %}
+                                <img src="{{ std.avatar.url }}" alt="{{ std.avatar }}">
+                                {#                    {{ std.avatar }}#}
+                            {% elif  std.user.last_name|slice:first|last == 'a' %}
+                                <img src="{% static 'courses/images/woman.png' %}" alt="">
+
+                            {% else %}
+                                <img src="{% static 'courses/images/man.png' %}" alt="">
+
+                            {% endif %}
+                        {% endwith %}
+                    {% endwith %}
+
+
+                    <h3>{{ request.user.get_full_name }}</h3>
+                    {% if 'instructor' == request.user.groups.get.name %}
+                        Teacher
+
+                    {% elif std %}
+                        Learner
+                    {% endif %}
+                    <hr>
+                </div>
+                <div class="account_profile_menu">
+                    <ul>
+                        {% if 'instructor' in request.user.groups.get.name %}
+
+                            <li>
+                                <a class="active" href="{% url 'course:manage:dashboard' %}"><i
+                                        class="mx-3 h3 bi bi-speedometer"></i><span>dashboard</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {#                        {% if std %}#}
+                        {#                            <li><a href="{% url 'stdudent_dashboard' %}"><i class="mx-3 h3 bi bi-grid"></i> <span>Profil Student</span></a></li>#}
+                        <li><a href="{% url 'account:stdudent_dashboard' %}"><i class="mx-3 h3 bi bi-grid"></i> <span>Profil Student</span></a>
+                        </li>
+                        <li>
+                            {#                                <a href="{% url 'student_course_list' %}"><i class="mx-3 h3 bi bi-mortarboard-fill"></i><span>Mening kurslarim</span>#}
+                            <a href="{% url 'account:student_course_list' %}"><i
+                                    class="mx-3 h3 bi bi-mortarboard-fill"></i><span>Mening kurslarim</span>
+                            </a>
+                        </li>
+                        {#                        {% endif %}#}
+
+
+                        <li>
+                            <a href="{% url 'account:log_out' %}"><i class="mx-3 bi bi-box-arrow-left"></i></span><span>Chiqish</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav><!-- .navbar -->
+        {% comment %} <a href="#about" class="get-started-btn scrollto"> <i class="bi bi-box-arrow-right"></i>Get Started</a> {% endcomment %}
+    </div>
+</header><!-- End Header -->
+

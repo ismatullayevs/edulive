@@ -1,0 +1,24 @@
+<div hx-target="this" hx-swap="outerHTML" class="row h-4 border p-3 shadow-sm mx-3 my-3">
+    <div class="col-md-6">
+        <h2>{{ object.text }}</h2>
+
+    </div>
+    <div class="col-md-6">
+        <div class="d-flex justify-content-end gap-2">
+            <button class="btn btn-outline-warning">update</button>
+            <button hx-post="{% url 'quiz:question_delete' object.pk %}" hx-confirm="{{ object }}ni o'chirish"
+                    class="btn btn-outline-danger">delete
+            </button>
+        </div>
+    </div>
+    <hr>
+
+    <div class="d-flex justify-content-between">
+        <h3>Javoblar</h3>
+        <div class="d-flex">
+            <button hx-get="{% url 'quiz:answer_form' quiz_id object.id %}" hx-swap="afterend" class="btn">javob
+                qo'shish
+            </button>
+        </div>
+    </div>
+</div>

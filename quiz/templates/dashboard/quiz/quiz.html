@@ -1,0 +1,47 @@
+{% extends "dashboard/layout/base.html" %}
+{% load crispy_forms_tags %}
+{% load course %}
+{% load static %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+    <main>
+        <div class="resent-grid" style="grid-template-columns: 100%">
+            <div class="projects">
+
+                <div class="card">
+                    <div class="card-header ">
+                        <h3>Quiz form</h3>
+                        <button hx-get="{% url 'quiz:create_quiz' %}" hx-target="#quizform">Test Yaratish<span
+                                class="fas fa-arrow-right"></span></button>
+
+                    </div>
+
+                    <div class="card-body">
+                        <div id="quizform"></div>
+
+                        {% for object in quiz_list %}
+                            {% include 'dashboard/quiz/course_quiz_detail.html' %}
+                        {% endfor %}
+
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            {#            <div class="card">#}
+            {#                <div class="card-header">#}
+            {#                    <h3>O'quvchilar ro'yxati</h3>#}
+            {##}
+            {#                    <button>See all <span class="fas fa-arrow-right"></span></button>#}
+            {#                </div>#}
+            {#                <div class="card-body">#}
+            {#                    card#}
+            {#                </div>#}
+            {#            </div>#}
+        </div>
+    </main>
+{% endblock content %}

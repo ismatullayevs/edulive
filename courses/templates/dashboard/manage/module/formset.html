@@ -1,0 +1,20 @@
+{% extends "dashboard/layout/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Edit "{{ course.title }}"
+{% endblock %}
+{% block content %}
+    <main>
+        <h1>{{ course.title }}"</h1>
+        <div class="module col-md-5">
+            <h2>Kurs mavzulari</h2>
+            <form method="post">
+                {{ formset|crispy }}
+                {{ formset.management_form }}
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" value="mavzilarni saqlash">
+            </form>
+        </div>
+    </main>
+
+{% endblock %}

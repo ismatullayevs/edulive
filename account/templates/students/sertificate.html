@@ -1,0 +1,98 @@
+{% load static %}
+{% load attempts %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {##}
+
+    {#    <title>Hello, world!</title>#}
+</head>
+
+<style type="text/css">
+    body {
+        font-family: 'Times New Roman';
+    }
+
+    section {
+        font-size: 2rem;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    .stable {
+        font-weight: bold;
+        font-size: 1.4rem;
+    }
+
+    .description {
+        font-size: .8rem;
+        text-align: start;
+        text-transform: capitalize;
+        text-indent: 40px;
+        text-align: justify;
+    }
+
+
+</style>
+<body>
+
+<section class="container p-4 text-center">
+    <img class="ali" src="static/img.png" alt="yop" width="100" STYLE="margin-bottom: 50px;">
+    <p class="h1"><span class="stable">“ STABLE EDUCATION ”</span> nodavlat ta'lim tashkiloti</p>
+    <p style="font-size:1rem;text-transform: uppercase;">KASB-HUNAR VA TADBIRKORLIKKA O'QITISH DASTURI BO'YICHA
+        O'QUV KURSLARINI MUVAFFAQIYATLI YAKUNLAGANLIK TO'G'RISIDA</p>
+    <div style="font-size:1.6rem"><b>SERTIFIKAT</b></div>
+    <p> (N<small>o</small>) SE-BUX-{{ sert.id|digit }}</p>
+    <div style="font-size:1.4rem;"><b class="h1">{{ sert.student.user.get_full_name }}</b></div>
+
+    <small><i>(ismi sharifi pasport ma'lumotlari asosida)</i></small>
+    <p class="description">
+        O'zbekiston Respublikasi Prezidentining "Aholini tadbirkorlikka jalb qilish tizimini
+        takomillashtirish va tadbirkorlikni rivojlantirishga doir qo'shimcha chora-tadbirlar to'g'risida" 2020 yil
+        13 oktyabrdagi PQ-4862-son qarori ijrosi hamda yoshlar va xotin-qizlarni kasb-hunar va tadbirkorlikka
+        o'qitish va biznes loyihalarini amalga oshirishga ko'maklashish hamda shu orqali ularning bandligini ta'minlash
+        maqsadida,
+        "STABLE EDUCATION" NTT tomonidan tashkil etilgan o'quv kurslarini muvaffaqiyatli tamomladi.
+        Ushbu sertifikat "Agro bank" orqali mikrokredit ajratish uchun berildi
+    </p>
+    <p class="description">
+        <b>Yo'nalish nomi:</b> {{ sert.course }}
+        {#        Dasturiy ta'minot, axborot tizimlari, mobil ilovalar va web-saytlarni ishlab#}
+        {#        chiqish, texnik qo'llab-quvvatlash (dasturchi, web-sahifalarni sahifalovchi, web-tahlilchi, web-saytlarni#}
+        {#        optimizatsiyalash bo'yicha mutaxassis).#}
+    </p>
+</section>
+
+<section>
+    <div class="">
+        <div>
+            <b>Muassasa rahbari:</b>
+            <i>Homidov Nurali Halovaddin o'g'li</i>
+            <div><b><small>Berilgan sana:</small></b> <small>{% now '' %}</small></div>
+        </div>
+
+    </div>
+
+</section>
+<table style="margin-top: 50px;">
+    <tr>
+        <td width="200">
+            <img width="100" height="100" src="{{ sert.qr_photo.path }}" alt="">
+        </td>
+        <td style="font-size: 2rem;">
+            Ma'lumotnomada ko'rsatilgan ma'lumotlar to'g'riligini tekshirish uchun mobil telefon yordamida QR-kodni
+            scaner
+            qiling
+        </td>
+
+    </tr>
+</table>
+
+
+</body>
+</html>

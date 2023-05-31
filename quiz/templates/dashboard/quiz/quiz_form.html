@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<div hx-target="this" hx-swap="outerHTML" class="row m-3">
+    <form action="">
+        {% csrf_token %}
+
+        {{ form.media }}
+        {{ form.course|as_crispy_field }}
+        {{ form.title|as_crispy_field }}
+        {{ form.description|as_crispy_field }}
+        {{ form.number_of_questions|as_crispy_field }}
+        {{ form.score_to_pass|as_crispy_field }}
+        {{ form.time|as_crispy_field }}
+        {{ form.difficulty|as_crispy_field }}
+        {#        {{ form.active|as_crispy_field }}#}
+
+        {% if object %}
+            <button hx-post="{% url 'quiz:update_quiz' object.id %}" class="btn btn-outline-dark mt-3 align-items-end">
+                saqlash
+            </button>
+
+            <button hx-post="{% url 'quiz:detail_quiz' object.id %}" class="btn btn-outline-dark mt-3 align-items-end">
+                orqaga qaytish
+            </button>
+        {% else %}
+            <button hx-post="{% url 'quiz:create_quiz' %}" class="btn btn-outline-dark mt-3 align-items-end">submit
+            </button>
+
+        {% endif %}
+    </form>
+</div>

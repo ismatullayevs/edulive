@@ -1,0 +1,31 @@
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+<div hx-target='this' class=" my-5" hx-swap="outerHTML">
+    <style>
+        .selectmultiple {
+            height: 400px;
+        }
+    </style>
+    <form method='POST' action="{% url 'course:manage:manage_group_detail' slug %}" class="d-grid gap-3">
+
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3">
+                {{ form.start_date|as_crispy_field }}
+            </div>
+            <div class="col-md-3">
+                {{ form.days_of_the_week|as_crispy_field }}
+            </div>
+            <div class="col-md-3">
+                {{ form.days|as_crispy_field }}
+            </div>
+        </div>
+        <div class="">
+
+            <button type="submit" class="btn btn-outline-dark">create</button>
+            {#            <button hx-post="{% url 'manage_group_detail' slug %}" class="btn btn-outline-dark">dars jadvalini shakllantirish</button>#}
+        </div>
+
+
+    </form>
+</div>

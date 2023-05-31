@@ -1,0 +1,99 @@
+{% extends 'students/layout/base.html' %}
+{% load static %}
+{% load attempts %}
+{% block content %}
+    <main>
+        <div class="md:container  bg-gray-100 mx-auto">
+            {#        modal#}
+            <div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Boshlash</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="modal-body-confirm">
+                                ...
+                            </div>
+                            <div class="modal-footer" id="modal-footer-confirm">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Orqaga</button>
+                                <button type="button" class="btn btn-success" id="start-button">Davom etish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h1">Nazorat Jadvali</div>
+                <hr>
+                <div class="d-md-flex flex-md-row flex-sm-column">
+
+                    {% for object in object_list %}
+
+                        {% with attempts=object.result|atm:request.user score=object.result|score:request.user %}
+                            {#                            <a href="{% url 'sertificate' %}">ser</a>#}
+
+                            <div class="card  bg-light mb-3 mx-3 " style="width: 30rem;">
+                                <div class="card-header">{{ object.course.title }}</div>
+                                <div class="card-body d-flex flex-column  justify-content-between align-items-start">
+                                    <h5 class="card-title">{{ object.title }}</h5>
+                                    <p class="card-text">nazorat testi <b>100</b> ballik tizimda baholanadi</p>
+                                    <p class="card-text">savollar soni: <b>{{ object.number_of_questions }}</b></p>
+                                    <p class="card-text">ajratilgan vaqt: <b>{{ object.time }} min</b></p>
+                                    <p class="card-text">o'tish korsatgichi: <b>{{ object.score_to_pass }} ball</b></p>
+
+
+                                </div>
+                                <div class="card-footer d-flex flex-column  justify-content-between align-items-end">
+                                    <p class="card-text">Urinishlar soni: <b>{{ attempts }}/3 marta</b>
+                                    </p>
+                                    <p class="card-text">{% if score < object.score_to_pass and attempts > 0 %}
+                                        yetarli bal to'plamadingiz
+                                    {% endif %}</p>
+                                    {% if  object.result|score:request.user %}
+                                        <p class="card-text">Test natijangiz:
+                                            <b>100 / {% if score >= object.score_to_pass %}
+                                                <b class="text-success">{{ score }} ball</b>
+                                            {% else %}
+                                                <b class="text-danger">{{ score }} ball</b>
+                                            {% endif %} </b>
+                                        </p>
+                                        {% if score >= object.score_to_pass %}
+                                            {#                                            {{ object.course.sertificate|sert:request.user }}#}
+                                            {% sert object.course.sertificate.all user=request.user course=object.course as sert %}
+                                            <a href="{% url 'account:sertificate' sert %}">sertificate</a>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if attempts >= 0 and attempts < 3 and score < object.score_to_pass %}
+                                        <button
+                                                class="btn btn-outline-success  modal-button"
+                                                data-pk="{{ object.pk }}"
+                                                data-quiz="{{ object.title }}"
+                                                data-questions="{{ object.number_of_questions }}"
+                                                data-difficulty="{{ object.difficulty }}"
+                                                data-time="{{ object.time }}"
+                                                data-pass="{{ object.score_to_pass }}"
+                                                data-attempt="{{ attempts }}"
+                                                data-score="{{ score }}"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
+                                            boshlash
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'students/js/quiz_main.js' %}" defer></script>
+{% endblock %}

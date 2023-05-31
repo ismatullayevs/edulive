@@ -1,0 +1,79 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="resent-grid">
+            <div class="projects">
+                {#            msg#}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ course.owner.get_full_name }}</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                {% endfor %}
+                {#            end msg#}
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Kurslar ro'yxati</h3>
+
+                        <button hx-get="{% url 'course:manage:course_form' %}" hx-target="#courseform"
+                                hx-swap="innerHTML">Kurs
+                            qo'shish<span class="fas fa-arrow-right"></span></button>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="module">
+                            <div id="courseform" class=""></div>
+
+                            {% for course in course_list %}
+
+                                {% include "dashboard/manage/course/course_detail.html" %}
+
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>O'quvchilar ro'yxati</h3>
+
+                    {#                    <button>See all <span class="fas fa-arrow-right"></span></button>#}
+                </div>
+                <div class="card-body">
+                    {% for student in students %}
+                        <div class="customer">
+                            <div class="info">
+                                {% if student.image|length > 7 %}
+                                    {#                                    {{ student.image|length }}#}
+                                    <img src="{{ student.image }}/user/images/photo_2020-11-21_16-11-28.jpg" width="40"
+                                         height="40" alt="">
+                                {% else %}
+                                    <img src="{% static 'courses/images/man.png' %}" width="40" height="40" alt="">
+                                {% endif %}
+                                <div>
+
+                                    <h4>{{ student.full_name }}</h4>
+
+                                </div>
+                            </div>
+
+                            <div class="contact">
+                                <a href="tel:{{ student.phone_number }}" title="{{ student.phone_number }}"><span
+                                        class="fas fa-phone"></span></a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

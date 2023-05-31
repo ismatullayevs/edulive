@@ -1,0 +1,28 @@
+{#{% extends 'dashboard/layout/base.html' %}#}
+{#{% block title %}Delete course{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <main>#}
+<div hx-target="this" hx-swap="outerHTML">
+    <h1>"{{ course.title }}"ni o'chirish</h1>
+    <div class="module">
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Haqiqatdan ham bu ("{{ course }}") kursi o'chirmoqchimisiz?</p>
+
+            <div class="btn-toolbar" role="toolbar">
+                <button hx-post="{% url 'course:manage:course_delete' course.id %}" hx-swap="outerHTML"
+                        class="btn btn-outline-danger mx-2">
+
+                    <span class="fas fa-trash fs-5" title="o'chirish"></span>delete
+                </button>
+                <button hx-get="{% url 'course:manage:detail_course' course.id %}" type="button"
+                        class="btn btn-outline-secondary">
+                    orqaga qaytish
+                </button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
