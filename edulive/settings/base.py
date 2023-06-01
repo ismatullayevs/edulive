@@ -241,3 +241,5 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.e-se.uz",
     "http://www.e-se.uz",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
