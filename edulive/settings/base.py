@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'mptt',
     'taggit',
     'storages',
-
+    'corsheaders',
     # form fields apps
     "crispy_forms",
     "crispy_bootstrap5",
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = 'account.CustomUser'
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -231,3 +232,12 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "https://e-se.uz",
+    "http://e-se.uz",
+    "https://www.e-se.uz",
+    "http://www.e-se.uz",
+]
