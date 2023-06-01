@@ -8,9 +8,11 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 """
 
 import os
+import dotenv
 
 from django.core.asgi import get_asgi_application
 
+dotenv.load_dotenv()
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'edulive.settings.production')
 
 application = get_asgi_application()
