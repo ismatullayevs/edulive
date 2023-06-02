@@ -192,16 +192,16 @@ EMAIL_PORT = os.environ.get('EMAIL_PORT')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-REDIS_HOST = os.environ.get('REDIS_HOST')
-REDIS_PORT = os.environ.get('REDIS_PORT')
-REDIS_DB = os.environ.get('REDIS_DB')
+# REDIS_HOST = os.environ.get('REDIS_HOST')
+# REDIS_PORT = os.environ.get('REDIS_PORT')
+# REDIS_DB = os.environ.get('REDIS_DB')
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}',
+#     }
+# }
 
 #CACHE_MIDDLEWARE_ALIAS = 'default'
 #CACHE_MIDDLEWARE_SECONDS = 60 * 15
